@@ -112,7 +112,7 @@ void Game::update(void)
 			window->draw(brick_textures[i]);
 		}
 		
-
+		//test
 		
 		soldier.draw(window);
 
