@@ -12,9 +12,9 @@ void Game::Background(void) {
 
 	pipeS.loadFromFile("../assets/pipeS.png");
 	pipeS_texture1.setTexture(pipeS);
-	pipeS_texture1.setOrigin({ 130, 100 });
+	pipeS_texture1.setOrigin({ 130, 0 });
 	pipeS_texture1.setScale({ -1,1 });
-	pipeS_texture1.setPosition({ 1790,250 });
+	pipeS_texture1.setPosition({ 1790,150 });
 
 	pipeS_texture2.setTexture(pipeS);
 	pipeS_texture2.setPosition({ 0, 150 });
@@ -62,7 +62,7 @@ Game::Game(int speed) {
 	Background();
 
 	
-	soldier.setPosition(Vector2f(float(rand() % (WINDOW_WIDTH - 100)), float(rand() % (WINDOW_HEIGHT - 100))));
+	mario.setPosition(Vector2f(float(rand() % (WINDOW_WIDTH - 100)), float(rand() % (WINDOW_HEIGHT - 100))));
 
 }
 
@@ -82,19 +82,19 @@ void Game::update(void)
 				
 				if (event.key.code == sf::Keyboard::Right)
 				{
-					soldier.walk( Soldier::WalkDirection::Right);
+					mario.walk(Mario::WalkDirection::Right);
 				}
 				else if (event.key.code == sf::Keyboard::Left)
 				{
-					soldier.walk(Soldier::WalkDirection::Left);
+					mario.walk(Mario::WalkDirection::Left);
 				}
 				else if (event.key.code == sf::Keyboard::Up)
 				{
-					soldier.walk(Soldier::WalkDirection::Up);
+					mario.walk(Mario::WalkDirection::Up);
 				}
 				else if (event.key.code == sf::Keyboard::Down)
 				{
-					soldier.walk(Soldier::WalkDirection::Down);
+					mario.walk(Mario::WalkDirection::Down);
 				}
 			}
 
@@ -114,7 +114,7 @@ void Game::update(void)
 		
 		//test2
 		
-		soldier.draw(window);
+		mario.draw(window);
 
 		
 

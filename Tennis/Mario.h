@@ -1,7 +1,7 @@
 #pragma once
 #include "Common.h"
 
-class Soldier {
+class Mario {
 	int state;
 	int footstate;
 	Vector2f pos;
@@ -9,7 +9,7 @@ class Soldier {
 	//Texture texture;
 	Sprite sprite;
 	RenderWindow* window;
-	Soldier* soldier;
+	Mario* mario;
 	int speed;
 
 public:
@@ -19,7 +19,7 @@ public:
 		Left,
 		Right
 	};
-	Soldier();
+	Mario();
 	void walk(WalkDirection dir);
 	void setPosition(Vector2f);
 	void draw(RenderWindow*);

@@ -1,5 +1,5 @@
 #include "Common.h"
-#include "Soldier.h"
+#include "Mario.h"
 
 class Game
 {
@@ -8,7 +8,7 @@ class Game
 	Sprite pipe_texture1, pipe_texture2, pipeS_texture1, pipeS_texture2,floor_texture1,floor_texture2;
 	Sprite* brick_textures;
 	int speed;
-	Soldier soldier;
+	Mario mario;
 
 public:
 	Game(int);

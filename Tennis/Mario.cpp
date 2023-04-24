@@ -1,9 +1,9 @@
-#include "Soldier.h"
+#include "Mario.h"
 #include "Game.h"
 
 
 
-Soldier::Soldier()
+Mario::Mario()
 {
 	char path[64];
 	for (int i = 0; i < 14; i++) 
@@ -20,18 +20,18 @@ Soldier::Soldier()
 	//sprite.setTexture(texture);
 }
 
-void Soldier::setPosition(Vector2f pos)
+void Mario::setPosition(Vector2f pos)
 {
 	this->pos = pos;
 	sprite.setPosition(pos);
 }
 
-void Soldier::draw(RenderWindow* window)
+void Mario::draw(RenderWindow* window)
 {
 	window->draw(sprite);
 }
 
-void Soldier::walk(WalkDirection dir)
+void Mario::walk(WalkDirection dir)
 {
 	
 	switch (state) {
