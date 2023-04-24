@@ -3,9 +3,9 @@
 void Game::Background(void) {
 	pipe.loadFromFile("../assets/pipe.png");
 	pipe_texture1.setTexture(pipe);
-	pipe_texture1.setOrigin({ 130, 100 });
+	pipe_texture1.setOrigin({ 130, 0 });
 	pipe_texture1.setScale({ -1,1 });
-	pipe_texture1.setPosition({ 0,1000 });
+	pipe_texture1.setPosition({ 0,900 });
 
 	pipe_texture2.setTexture(pipe);
 	pipe_texture2.setPosition({ 1800,900 });
