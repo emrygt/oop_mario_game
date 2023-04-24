@@ -14,8 +14,6 @@ class Mario {
 
 public:
 	enum WalkDirection {
-		Up,
-		Down,
 		Left,
 		Right
 	};

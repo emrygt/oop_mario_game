@@ -88,14 +88,6 @@ void Game::update(void)
 				{
 					mario.walk(Mario::WalkDirection::Left);
 				}
-				else if (event.key.code == sf::Keyboard::Up)
-				{
-					mario.walk(Mario::WalkDirection::Up);
-				}
-				else if (event.key.code == sf::Keyboard::Down)
-				{
-					mario.walk(Mario::WalkDirection::Down);
-				}
 			}
 
 		}
@@ -108,14 +100,13 @@ void Game::update(void)
 		window->draw(pipeS_texture2);
 		window->draw(floor_texture1);
 		window->draw(floor_texture2);
+
 		for (int i = 0; i < 150; i++) {
 			window->draw(brick_textures[i]);
 		}
 		
-		//test2
 		
 		mario.draw(window);
-
 		
 
 		window->display();
