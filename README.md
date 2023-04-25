@@ -1,3 +1,5 @@
 # oop project
 
-A simple mario game written in c++ using SFML.
+The greatest mario game of the world. Revolutionary for the gaming business. Written in c++ using SFML.
+
+by THE LEYLAS
