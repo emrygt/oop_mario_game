@@ -31,7 +31,6 @@ void Game::Background(void) {
 
 	for (int i = 0; i < 150; i++) {
 		brick_textures[i].setTexture(brick);
-		//brick_textures[i].setScale(2,2);
 	}
 	for (int i = 0; i < 26; i++) {
 		brick_textures[i].setPosition({float(i * 30), 750});
@@ -62,25 +61,28 @@ Game::Game(int speed) {
 	Background();
 
 	
-	mario.setPosition(Vector2f(float(rand() % (WINDOW_WIDTH - 100)), float(rand() % (WINDOW_HEIGHT - 100))));
+	mario.setPosition(Vector2f((300), (300)));
 
 }
 
 void Game::update(void)
 
 {
+	mario.isJump = 0;
+	mario.vy = -50;
 	while (window->isOpen())
 	{
 		Event event;
-
-		while (window->pollEvent(event))
+		
+		window->pollEvent(event);
 		{
 			if (event.type == Event::Closed)
 				window->close();
-			if (event.type == sf::Event::KeyPressed)
+
+			if ((event.type == sf::Event::KeyPressed)||mario.isJump)
 			{
 				
-				if (event.key.code == sf::Keyboard::Right)
+ 				if (event.key.code == sf::Keyboard::Right)
 				{
 					mario.walk(Mario::WalkDirection::Right);
 				}
@@ -88,8 +90,13 @@ void Game::update(void)
 				{
 					mario.walk(Mario::WalkDirection::Left);
 				}
+   				else if ((event.key.code == sf::Keyboard::Space||mario.isJump))
+				{
+					mario.isJump = 1;
+					mario.walk(Mario::WalkDirection::Space);
+					mario.vy+=5;
+				}
 			}
-
 		}
 
 		window->clear();

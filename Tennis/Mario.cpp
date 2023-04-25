@@ -3,6 +3,7 @@
 
 
 
+
 Mario::Mario()
 {
 	char path[64];
@@ -15,7 +16,7 @@ Mario::Mario()
 
 	state = 1;
 	footstate = 0;
-	speed = 12;
+	speed = 10;
 	sprite.setTexture(textures[state]);
 }
 
@@ -30,37 +31,62 @@ void Mario::draw(RenderWindow* window)
 	window->draw(sprite);
 }
 
+void Mario::jump(bool down)
+{
+	if (down == 0)
+	{
+		
+		{
+		sprite.move(Vector2f(0, vy));
+		cout << "vy" << endl;
+		}
+		
+	}
+	if (down == 1)
+	{
+
+	}
+}
+
 void Mario::walk(WalkDirection dir)
 {
 	
 	switch (state) {
 	case 1:
-		if (dir == WalkDirection::Right)   //up direction
+		if (dir == WalkDirection::Right)
 		{
-			sprite.move(sf::Vector2f(speed,0));
+			sprite.move(sf::Vector2f(speed+60,0));
 			state = 8;
-			sprite.setPosition(sprite.getPosition() + Vector2f(65, 0));
 		}
 		else if (dir == WalkDirection::Left)
 		{
 			sprite.move(sf::Vector2f(-speed,0));
 			state = 2;
 		}
+		else if (dir == WalkDirection::Space)
+		{
+			state = 6;
+		}
 		break;
 
 	case 2:
-		if (dir == WalkDirection::Left)   //up direction
+		if (dir == WalkDirection::Left)
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 3;
+		}
+		else if (dir == WalkDirection::Space)
+		{
+			state = 6;
 		}
 		else
 		{
 			state = 1;
 		}
+		
 		break;
 	case 3:
-		if (dir == WalkDirection::Left && footstate == 0)   //up direction
+		if (dir == WalkDirection::Left && footstate == 0)
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 4;
@@ -72,16 +98,24 @@ void Mario::walk(WalkDirection dir)
 			state = 2;
 			footstate = 0;
 		}
+		else if (dir == WalkDirection::Space)
+		{
+			state = 6;
+		}
 		else
 		{
 			state = 1;
 		}
 		break;
 	case 4:
-		if (dir == WalkDirection::Left)   //up direction
+		if (dir == WalkDirection::Left) 
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 3;
+		}
+		else if (dir == WalkDirection::Space)
+		{
+			state = 6;
 		}
 		else
 		{
@@ -91,30 +125,39 @@ void Mario::walk(WalkDirection dir)
 	case 5:
 		break;
 	case 6:
+		jump(0);
+		//state = 1;
 		break;
 	case 7:
 		break;
 	case 8:
-		if (dir == WalkDirection::Left)   //up direction
+		if (dir == WalkDirection::Left) 
 		{
-			sprite.move(sf::Vector2f(-speed, 0));
+			sprite.move(sf::Vector2f(-speed-60, 0));
 			state = 1;
-			sprite.setPosition(sprite.getPosition() - Vector2f(65, 0));
 		}
 		else if (dir == WalkDirection::Right)
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 9;
 		}
+		else if (dir == WalkDirection::Space)
+		{
+			state = 13;
+		}
 
 		
 		break;
 
 	case 9:
-		if (dir == WalkDirection::Right)   //up direction
+		if (dir == WalkDirection::Right) 
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 10;
+		}
+		else if (dir == WalkDirection::Space)
+		{
+			state = 13;
 		}
 		else
 		{
@@ -122,7 +165,7 @@ void Mario::walk(WalkDirection dir)
 		}
 		break;
 	case 10:
-		if (dir == WalkDirection::Right && footstate == 0)   //up direction
+		if (dir == WalkDirection::Right && footstate == 0) 
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 11;
@@ -134,16 +177,24 @@ void Mario::walk(WalkDirection dir)
 			state = 9;
 			footstate = 0;
 		}
+		else if (dir == WalkDirection::Space)
+		{
+			state = 13;
+		}
 		else
 		{
 			state = 8;
 		}
 		break;
 	case 11:
-		if (dir == WalkDirection::Right)   //up direction
+		if (dir == WalkDirection::Right)
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 10;
+		}
+		else if (dir == WalkDirection::Space)
+		{
+			state = 13;
 		}
 		else
 		{
@@ -153,6 +204,7 @@ void Mario::walk(WalkDirection dir)
 	case 12:
 		break;
 	case 13:
+		jump(0);
 		break;
 
 	}
@@ -163,6 +215,5 @@ void Mario::walk(WalkDirection dir)
 		sprite.setScale(-1, 1);
 	if (state <= 7) {
 		sprite.setScale(1, 1);
-		//Vector2f b = 
 	}
 }
