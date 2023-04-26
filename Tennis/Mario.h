@@ -21,7 +21,7 @@ public:
 	};
 	Mario();
 	void walk(WalkDirection dir);
-	//void setPosition(Vector2f);
+	void setPosition(Vector2f);
 	void jump(bool);
 	void draw(RenderWindow*);
 };

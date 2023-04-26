@@ -10,7 +10,6 @@ class Game
 	Sprite* brick_textures;
 	int speed, a;
 	Mario mario;
-	Object object;
 
 public:
 	RenderWindow* window;
