@@ -1,5 +1,4 @@
 #include "Mario.h"
-#include "Game.h"
 
 
 
@@ -20,11 +19,7 @@ Mario::Mario()
 	sprite.setTexture(textures[state]);
 }
 
-void Mario::setPosition(Vector2f pos)
-{
-	this->pos = pos;
-	sprite.setPosition(pos);
-}
+
 
 void Mario::draw(RenderWindow* window)
 {
@@ -37,7 +32,7 @@ void Mario::jump(bool down)
 	{
 		
 		{
-		sprite.move(Vector2f(0, vy));
+		sprite.move(Vector2f(vx, vy));
 		cout << "vy" << endl;
 		}
 		
@@ -78,6 +73,7 @@ void Mario::walk(WalkDirection dir)
 		else if (dir == WalkDirection::Space)
 		{
 			state = 6;
+			vx = -speed;
 		}
 		else
 		{
@@ -101,6 +97,7 @@ void Mario::walk(WalkDirection dir)
 		else if (dir == WalkDirection::Space)
 		{
 			state = 6;
+			vx = -speed;
 		}
 		else
 		{
@@ -115,7 +112,8 @@ void Mario::walk(WalkDirection dir)
 		}
 		else if (dir == WalkDirection::Space)
 		{
-			state = 6;
+			state = -speed;
+			vx = 10;
 		}
 		else
 		{
@@ -158,6 +156,7 @@ void Mario::walk(WalkDirection dir)
 		else if (dir == WalkDirection::Space)
 		{
 			state = 13;
+			vx = speed;
 		}
 		else
 		{
@@ -180,6 +179,7 @@ void Mario::walk(WalkDirection dir)
 		else if (dir == WalkDirection::Space)
 		{
 			state = 13;
+			vx = speed;
 		}
 		else
 		{
@@ -195,6 +195,7 @@ void Mario::walk(WalkDirection dir)
 		else if (dir == WalkDirection::Space)
 		{
 			state = 13;
+			vx = speed;
 		}
 		else
 		{

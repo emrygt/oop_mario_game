@@ -61,7 +61,7 @@ Game::Game(int speed) {
 	Background();
 
 	
-	mario.setPosition(Vector2f((300), (300)));
+	object.setPosition(Vector2f((300), (300)));
 
 }
 

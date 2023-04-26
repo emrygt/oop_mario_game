@@ -1,5 +1,6 @@
 #include "Common.h"
 #include "Mario.h"
+#include "Object.h"
 
 class Game
 {
@@ -9,6 +10,7 @@ class Game
 	Sprite* brick_textures;
 	int speed, a;
 	Mario mario;
+	Object object;
 
 public:
 	RenderWindow* window;

@@ -142,7 +142,7 @@
     <ClCompile Include="ScoreBoard.h" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="object.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="Turtle.cpp" />
@@ -150,7 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Common.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="object.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Turtle.h" />
   </ItemGroup>
