@@ -61,7 +61,7 @@ Game::Game(int speed) {
 	Background();
 
 	
-	mario.setPosition(Vector2f((300), (300)));
+	mario.setPosition(Vector2f((300), (500)));
 
 }
 
@@ -82,32 +82,41 @@ void Game::update(void)
 
 			if ((event.type == sf::Event::KeyPressed) ||mario.isJump || mario.isFall)
 			{
+				cout << event.key.code << endl;
 				
- 				if (event.key.code == sf::Keyboard::Right)
+ 				if (event.key.code == sf::Keyboard::Right && !(event.key.code == sf::Keyboard::Left))
 				{
 					mario.walk(Mario::WalkDirection::Right);
+					if (mario.isJump)
+					{
+						mario.sprite.move(Vector2f(mario.speed,0));
+					}
 				}
-				else if (event.key.code == sf::Keyboard::Left)
+				if (event.key.code == sf::Keyboard::Left && !(event.key.code == sf::Keyboard::Right))
 				{
 					mario.walk(Mario::WalkDirection::Left);
+					if (mario.isJump)
+					{
+						mario.sprite.move(Vector2f(-mario.speed, 0));
+					}
 				}
-   				else if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
+   				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
 				{
 					mario.isJump = 1;	
 					mario.vy = -50;
 				}
-				else if (mario.isJump)
+				if (mario.isJump)
 				{
 					mario.walk(Mario::WalkDirection::Space);
 					mario.vy += 5;
 				}
-				else if (event.key.code == sf::Keyboard::F && !mario.isFall)
+				if (event.key.code == sf::Keyboard::F && !mario.isFall)
 				{
 					mario.isFall = 1;
 					mario.vy = 0;
 					mario.state = 7;
 				}
-				else if (mario.isFall)
+				if (mario.isFall)
 				{
 					mario.walk(Mario::WalkDirection::Space);
 					mario.vy += 3;

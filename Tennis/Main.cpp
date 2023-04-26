@@ -6,7 +6,5 @@ int main()
     Game game(SPEED);
     game.update();
 
-    //test
-
     return 0;
 }

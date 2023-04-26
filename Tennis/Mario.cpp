@@ -216,7 +216,6 @@ void Mario::walk(WalkDirection dir)
 		break;
 
 	}
-	cout << state << endl;
 	
 	sprite.setTexture(textures[state-1]);
 	if (state > 7)
