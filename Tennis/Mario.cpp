@@ -35,13 +35,19 @@ void Mario::jump(bool down)
 		
 		{
 		sprite.move(Vector2f(vx, vy));
-		cout << "vy" << endl;
 		}
 		
 	}
 	if (down == 1)
 	{
 
+	}
+}
+
+void Mario::fall(void)
+{
+	{
+		sprite.move(Vector2f(0, vy));
 	}
 }
 
@@ -60,7 +66,7 @@ void Mario::walk(WalkDirection dir)
 			sprite.move(sf::Vector2f(-speed,0));
 			state = 2;
 		}
-		else if (dir == WalkDirection::Space)
+		else if (isJump)
 		{
 			state = 6;
 		}
@@ -72,7 +78,7 @@ void Mario::walk(WalkDirection dir)
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 3;
 		}
-		else if (dir == WalkDirection::Space)
+		else if (isJump)
 		{
 			state = 6;
 			vx = -speed;
@@ -96,7 +102,7 @@ void Mario::walk(WalkDirection dir)
 			state = 2;
 			footstate = 0;
 		}
-		else if (dir == WalkDirection::Space)
+		else if (isJump)
 		{
 			state = 6;
 			vx = -speed;
@@ -112,10 +118,10 @@ void Mario::walk(WalkDirection dir)
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 3;
 		}
-		else if (dir == WalkDirection::Space)
+		else if (isJump)
 		{
-			state = -speed;
-			vx = 10;
+			state = 6;
+			vx = -speed;
 		}
 		else
 		{
@@ -129,6 +135,7 @@ void Mario::walk(WalkDirection dir)
 		//state = 1;
 		break;
 	case 7:
+		fall();
 		break;
 	case 8:
 		if (dir == WalkDirection::Left) 
@@ -141,12 +148,10 @@ void Mario::walk(WalkDirection dir)
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 9;
 		}
-		else if (dir == WalkDirection::Space)
+		else if (isJump)
 		{
 			state = 13;
 		}
-
-		
 		break;
 
 	case 9:
@@ -155,7 +160,7 @@ void Mario::walk(WalkDirection dir)
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 10;
 		}
-		else if (dir == WalkDirection::Space)
+		else if (isJump)
 		{
 			state = 13;
 			vx = speed;
@@ -178,7 +183,7 @@ void Mario::walk(WalkDirection dir)
 			state = 9;
 			footstate = 0;
 		}
-		else if (dir == WalkDirection::Space)
+		else if (isJump)
 		{
 			state = 13;
 			vx = speed;
@@ -194,7 +199,7 @@ void Mario::walk(WalkDirection dir)
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 10;
 		}
-		else if (dir == WalkDirection::Space)
+		else if (isJump)
 		{
 			state = 13;
 			vx = speed;
@@ -216,7 +221,7 @@ void Mario::walk(WalkDirection dir)
 	sprite.setTexture(textures[state-1]);
 	if (state > 7)
 		sprite.setScale(-1, 1);
-	if (state <= 7) {
+	if (state < 7) {
 		sprite.setScale(1, 1);
 	}
 }

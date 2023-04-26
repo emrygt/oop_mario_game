@@ -69,7 +69,8 @@ void Game::update(void)
 
 {
 	mario.isJump = 0;
-	mario.vy = -50;
+	mario.isFall = 0;
+	
 	while (window->isOpen())
 	{
 		Event event;
@@ -79,7 +80,7 @@ void Game::update(void)
 			if (event.type == Event::Closed)
 				window->close();
 
-			if ((event.type == sf::Event::KeyPressed)||mario.isJump)
+			if ((event.type == sf::Event::KeyPressed) ||mario.isJump || mario.isFall)
 			{
 				
  				if (event.key.code == sf::Keyboard::Right)
@@ -90,11 +91,26 @@ void Game::update(void)
 				{
 					mario.walk(Mario::WalkDirection::Left);
 				}
-   				else if ((event.key.code == sf::Keyboard::Space||mario.isJump))
+   				else if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
 				{
-					mario.isJump = 1;
+					mario.isJump = 1;	
+					mario.vy = -50;
+				}
+				else if (mario.isJump)
+				{
 					mario.walk(Mario::WalkDirection::Space);
-					mario.vy+=5;
+					mario.vy += 5;
+				}
+				else if (event.key.code == sf::Keyboard::F && !mario.isFall)
+				{
+					mario.isFall = 1;
+					mario.vy = 0;
+					mario.state = 7;
+				}
+				else if (mario.isFall)
+				{
+					mario.walk(Mario::WalkDirection::Space);
+					mario.vy += 3;
 				}
 			}
 		}
