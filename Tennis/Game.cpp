@@ -23,11 +23,11 @@ Game::Game() {
 
 				if (event.key.code == sf::Keyboard::Right && !(event.key.code == sf::Keyboard::Left))
 				{
-					mario.walk(Mario::WalkDirection::Right);
+					mario.move(Mario::WalkDirection::Right);
 				}
 				if (event.key.code == sf::Keyboard::Left && !(event.key.code == sf::Keyboard::Right))
 				{
-					mario.walk(Mario::WalkDirection::Left);
+					mario.move(Mario::WalkDirection::Left);
 				}
 				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
 				{
@@ -36,7 +36,7 @@ Game::Game() {
 				}
 				if (mario.isJump)
 				{
-					mario.walk(Mario::WalkDirection::Space);
+					mario.move(Mario::WalkDirection::Space);
 					mario.vy += 5;
 				}
 				if (event.key.code == sf::Keyboard::F && !mario.isFall)
@@ -47,7 +47,7 @@ Game::Game() {
 				}
 				if (mario.isFall)
 				{
-					mario.walk(Mario::WalkDirection::Space);
+					mario.move(Mario::WalkDirection::Space);
 					mario.vy += 3;
 				}
 			}

@@ -6,8 +6,12 @@ public:
 	Texture textures[8];
 	Sprite sprite;
 	Vector2f pos;
-	void setPosition(Vector2f);
 	int state, isJump, isFall;
+
+	void setPosition(Vector2f);
+	void move(void);
+	void fall(void);
+	void jump(bool);
 
 
 

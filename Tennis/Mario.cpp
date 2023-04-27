@@ -12,7 +12,7 @@ Mario::Mario ()
 	}
 
 	state = 1;
-	footstate = 0;
+	
 	sprite.setTexture(textures[state]);
 }
 
@@ -46,11 +46,11 @@ void Mario::fall(void)
 	}
 }
 
-void Mario::walk(WalkDirection dir)
+void Mario::move(WalkDirection dir)
 {
 
 	int speed=10;
-
+	int footstate = 0;
 	switch (state) {
 	case 1:
 		if (dir == WalkDirection::Right)

@@ -3,11 +3,9 @@
 #include "Object.h"
 
 class Mario : public Object {
-	int footstate;
-	Mario* mario;
 
 public:
-	float vx; //Horizontal speed 
+	float vx; 
 	float vy;
 	enum WalkDirection {
 		Left,
@@ -15,7 +13,7 @@ public:
 		Space
 	};
 	Mario();
-	void walk(WalkDirection dir);
+	void move(WalkDirection dir);
 	void jump(bool);
 	void fall(void);
 	void draw(RenderWindow*);
