@@ -9,7 +9,7 @@ class Game
 	Mario mario;
 
 public:
-	RenderWindow* window;
 	Game();
+	RenderWindow* window;
 	void Background(void);
 };

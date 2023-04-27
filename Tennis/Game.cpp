@@ -23,11 +23,11 @@ Game::Game() {
 
 				if (event.key.code == sf::Keyboard::Right && !(event.key.code == sf::Keyboard::Left))
 				{
-					mario.move(Mario::WalkDirection::Right);
+					mario.move(mario.WalkDirection::Right);
 				}
 				if (event.key.code == sf::Keyboard::Left && !(event.key.code == sf::Keyboard::Right))
 				{
-					mario.move(Mario::WalkDirection::Left);
+					mario.move(mario.WalkDirection::Left);
 				}
 				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
 				{
@@ -36,7 +36,7 @@ Game::Game() {
 				}
 				if (mario.isJump)
 				{
-					mario.move(Mario::WalkDirection::Space);
+					mario.move(mario.WalkDirection::Space);
 					mario.vy += 5;
 				}
 				if (event.key.code == sf::Keyboard::F && !mario.isFall)
@@ -47,7 +47,7 @@ Game::Game() {
 				}
 				if (mario.isFall)
 				{
-					mario.move(Mario::WalkDirection::Space);
+					mario.move(mario.WalkDirection::Space);
 					mario.vy += 3;
 				}
 			}
@@ -125,4 +125,3 @@ void Game::Background(void) {
 		bgSprites[i + 132].setPosition({ float(1200 + i * 30), 300 });
 	}
 }
-
