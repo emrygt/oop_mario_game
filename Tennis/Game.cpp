@@ -24,18 +24,10 @@ Game::Game() {
 				if (event.key.code == sf::Keyboard::Right && !(event.key.code == sf::Keyboard::Left))
 				{
 					mario.walk(Mario::WalkDirection::Right);
-					if (mario.isJump)
-					{
-						mario.sprite.move(Vector2f(0, 0));
-					}
 				}
 				if (event.key.code == sf::Keyboard::Left && !(event.key.code == sf::Keyboard::Right))
 				{
 					mario.walk(Mario::WalkDirection::Left);
-					if (mario.isJump)
-					{
-						mario.sprite.move(Vector2f(0, 0));
-					}
 				}
 				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
 				{
