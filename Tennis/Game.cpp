@@ -1,57 +1,57 @@
 #include "Game.h"
 
 void Game::Background(void) {
-	pipe.loadFromFile("../assets/pipe.png");
-	pipe_texture1.setTexture(pipe);
-	pipe_texture1.setOrigin({ 130, 0 });
-	pipe_texture1.setScale({ -1,1 });
-	pipe_texture1.setPosition({ 0,900 });
-
-	pipe_texture2.setTexture(pipe);
-	pipe_texture2.setPosition({ 1800,900 });
-
-	pipeS.loadFromFile("../assets/pipeS.png");
-	pipeS_texture1.setTexture(pipeS);
-	pipeS_texture1.setOrigin({ 130, 0 });
-	pipeS_texture1.setScale({ -1,1 });
-	pipeS_texture1.setPosition({ 1790,150 });
-
-	pipeS_texture2.setTexture(pipeS);
-	pipeS_texture2.setPosition({ 0, 150 });
-
-	floor.loadFromFile("../assets/floor.png");
-	floor_texture1.setTexture(floor);
-	floor_texture1.setPosition({ 0,980 });
-	floor_texture2.setTexture(floor);
-	floor_texture2.setPosition({ 960,980 });
 
 	brick_textures = new Sprite[150];
+	bgSprites = new Sprite[156];
 
-	brick.loadFromFile("../assets/brick.png");
+	bgTextures[0].loadFromFile("../assets/pipe.png");
+	bgSprites[0].setTexture(bgTextures[0]);
+	bgSprites[0].setScale({ -1,1 });
+	bgSprites[0].setPosition({ 120,900 });
+	bgSprites[1].setTexture(bgTextures[0]);
+	bgSprites[1].setPosition({ 1800,900 });
+
+	bgTextures[1].loadFromFile("../assets/pipeS.png");
+	bgSprites[2].setTexture(bgTextures[1]);
+	bgSprites[2].setScale({ -1,1 });
+	bgSprites[2].setPosition({ 1920,150 });
+	bgSprites[3].setTexture(bgTextures[1]);
+	bgSprites[3].setPosition({ 0, 150 });
+
+	bgTextures[2].loadFromFile("../assets/floor.png");
+	bgSprites[4].setTexture(bgTextures[2]);
+	bgSprites[4].setPosition({ 0,980 });
+	bgSprites[5].setTexture(bgTextures[2]);
+	bgSprites[5].setPosition({ 960,980 });
+
+	
+
+	bgTextures[3].loadFromFile("../assets/brick.png");
 
 	for (int i = 0; i < 150; i++) {
-		brick_textures[i].setTexture(brick);
+		bgSprites[i + 6].setTexture(bgTextures[3]);
 	}
 	for (int i = 0; i < 26; i++) {
-		brick_textures[i].setPosition({float(i * 30), 750});
+		bgSprites[i + 6].setPosition({float(i * 30), 750});
 	}
 	for (int i = 0; i < 26; i++) {
-		brick_textures[i+26].setPosition({ float(1140 + i * 30), 750 });
+		bgSprites[i + 32].setPosition({ float(1140 + i * 30), 750 });
 	}
 	for (int i = 0; i < 10; i++) {
-		brick_textures[i + 52].setPosition({ float(i * 30), 525 });
+		bgSprites[i + 58].setPosition({ float(i * 30), 525 });
 	}
 	for (int i = 0; i < 10; i++) {
-		brick_textures[i + 62].setPosition({ float(1620 + i * 30), 525 });
+		bgSprites[i + 68].setPosition({ float(1620 + i * 30), 525 });
 	}
 	for (int i = 0; i < 30; i++) {
-		brick_textures[i + 72].setPosition({ float(480 + i * 30), 480 });
+		bgSprites[i + 78].setPosition({ float(480 + i * 30), 480 });
 	}
 	for (int i = 0; i < 24; i++) {
-		brick_textures[i + 102].setPosition({ float(i * 30), 300 });
+		bgSprites[i + 108].setPosition({ float(i * 30), 300 });
 	}
 	for (int i = 0; i < 24; i++) {
-		brick_textures[i + 126].setPosition({ float(1200 + i * 30), 300 });
+		bgSprites[i + 132].setPosition({ float(1200 + i * 30), 300 });
 	}
 }
 
@@ -126,15 +126,10 @@ void Game::update(void)
 
 		window->clear();
 
-		window->draw(pipe_texture1);
-		window->draw(pipe_texture2);
-		window->draw(pipeS_texture1);
-		window->draw(pipeS_texture2);
-		window->draw(floor_texture1);
-		window->draw(floor_texture2);
 
-		for (int i = 0; i < 150; i++) {
-			window->draw(brick_textures[i]);
+
+		for (int i = 0; i < 156; i++) {
+			window->draw(bgSprites[i]);
 		}
 		
 		

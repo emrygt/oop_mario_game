@@ -1,14 +1,13 @@
 #include "Common.h"
 #include "Mario.h"
-#include "Object.h"
 
 class Game
 {
 	
-	Texture pipe, pipeS, floor, brick;
-	Sprite pipe_texture1, pipe_texture2, pipeS_texture1, pipeS_texture2, floor_texture1, floor_texture2;
+	Texture bgTextures[4];
 	Sprite* brick_textures;
-	int speed, a;
+	Sprite* bgSprites;
+	int speed;
 	Mario mario;
 
 public:

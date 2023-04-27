@@ -1,7 +1,7 @@
 #include "Mario.h"
 
 
-Mario::Mario()
+Mario::Mario ()
 {
 	char path[64];
 	for (int i = 1; i < 8; i++) 
@@ -17,11 +17,7 @@ Mario::Mario()
 	sprite.setTexture(textures[state]);
 }
 
-void Mario::setPosition(Vector2f pos)
-{
-	this->pos = pos;
-	sprite.setPosition(pos);
-}
+
 
 void Mario::draw(RenderWindow* window)
 {
