@@ -1,8 +1,87 @@
 #include "Game.h"
 
+Game::Game() {
+	window = new RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mario");
+	Background();
+	mario.setPosition(Vector2f((300), (500)));
+
+	mario.isJump = 0;
+	mario.isFall = 0;
+
+	while (window->isOpen())
+	{
+		Event event;
+
+		window->pollEvent(event);
+		{
+			if (event.type == Event::Closed)
+				window->close();
+
+			if ((event.type == sf::Event::KeyPressed) || mario.isJump || mario.isFall)
+			{
+				cout << event.key.code << endl;
+
+				if (event.key.code == sf::Keyboard::Right && !(event.key.code == sf::Keyboard::Left))
+				{
+					mario.walk(Mario::WalkDirection::Right);
+					if (mario.isJump)
+					{
+						mario.sprite.move(Vector2f(0, 0));
+					}
+				}
+				if (event.key.code == sf::Keyboard::Left && !(event.key.code == sf::Keyboard::Right))
+				{
+					mario.walk(Mario::WalkDirection::Left);
+					if (mario.isJump)
+					{
+						mario.sprite.move(Vector2f(0, 0));
+					}
+				}
+				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
+				{
+					mario.isJump = 1;
+					mario.vy = -50;
+				}
+				if (mario.isJump)
+				{
+					mario.walk(Mario::WalkDirection::Space);
+					mario.vy += 5;
+				}
+				if (event.key.code == sf::Keyboard::F && !mario.isFall)
+				{
+					mario.isFall = 1;
+					mario.vy = 0;
+					mario.state = 7;
+				}
+				if (mario.isFall)
+				{
+					mario.walk(Mario::WalkDirection::Space);
+					mario.vy += 3;
+				}
+			}
+		}
+
+		window->clear();
+
+
+
+		for (int i = 0; i < 156; i++) {
+			window->draw(bgSprites[i]);
+		}
+
+
+		mario.draw(window);
+
+
+		window->display();
+
+		sf::sleep(sf::milliseconds(100));
+	}
+}
+
 void Game::Background(void) {
 
-	brick_textures = new Sprite[150];
+
 	bgSprites = new Sprite[156];
 
 	bgTextures[0].loadFromFile("../assets/pipe.png");
@@ -55,89 +134,3 @@ void Game::Background(void) {
 	}
 }
 
-Game::Game(int speed) {
-	this->speed = speed;
-	window = new RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mario");
-	Background();
-
-	
-	mario.setPosition(Vector2f((300), (500)));
-
-}
-
-void Game::update(void)
-
-{
-	mario.isJump = 0;
-	mario.isFall = 0;
-	
-	while (window->isOpen())
-	{
-		Event event;
-		
-		window->pollEvent(event);
-		{
-			if (event.type == Event::Closed)
-				window->close();
-
-			if ((event.type == sf::Event::KeyPressed) ||mario.isJump || mario.isFall)
-			{
-				cout << event.key.code << endl;
-				
- 				if (event.key.code == sf::Keyboard::Right && !(event.key.code == sf::Keyboard::Left))
-				{
-					mario.walk(Mario::WalkDirection::Right);
-					if (mario.isJump)
-					{
-						mario.sprite.move(Vector2f(mario.speed,0));
-					}
-				}
-				if (event.key.code == sf::Keyboard::Left && !(event.key.code == sf::Keyboard::Right))
-				{
-					mario.walk(Mario::WalkDirection::Left);
-					if (mario.isJump)
-					{
-						mario.sprite.move(Vector2f(-mario.speed, 0));
-					}
-				}
-   				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
-				{
-					mario.isJump = 1;	
-					mario.vy = -50;
-				}
-				if (mario.isJump)
-				{
-					mario.walk(Mario::WalkDirection::Space);
-					mario.vy += 5;
-				}
-				if (event.key.code == sf::Keyboard::F && !mario.isFall)
-				{
-					mario.isFall = 1;
-					mario.vy = 0;
-					mario.state = 7;
-				}
-				if (mario.isFall)
-				{
-					mario.walk(Mario::WalkDirection::Space);
-					mario.vy += 3;
-				}
-			}
-		}
-
-		window->clear();
-
-
-
-		for (int i = 0; i < 156; i++) {
-			window->draw(bgSprites[i]);
-		}
-		
-		
-		mario.draw(window);
-		
-
-		window->display();
-
-		sf::sleep(sf::milliseconds(1000/speed));
-	}
-}

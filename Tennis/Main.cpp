@@ -3,8 +3,8 @@
 
 int main()
 {
-    Game game(SPEED);
-    game.update();
+    Game game;
+    //game.update();
 
     return 0;
 }

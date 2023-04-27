@@ -3,17 +3,16 @@
 
 Mario::Mario ()
 {
+
 	char path[64];
 	for (int i = 1; i < 8; i++) 
 	{
 		sprintf_s(path, "../assets/mario%d.png", i);
 		textures[i - 1].loadFromFile(path);
-		textures[i + 6].loadFromFile(path); 
 	}
 
 	state = 1;
 	footstate = 0;
-	speed = 10;
 	sprite.setTexture(textures[state]);
 }
 
@@ -49,7 +48,9 @@ void Mario::fall(void)
 
 void Mario::walk(WalkDirection dir)
 {
-	
+
+	int speed=10;
+
 	switch (state) {
 	case 1:
 		if (dir == WalkDirection::Right)
@@ -213,10 +214,13 @@ void Mario::walk(WalkDirection dir)
 
 	}
 	
-	sprite.setTexture(textures[state-1]);
-	if (state > 7)
+	
+	if (state > 7){
+		sprite.setTexture(textures[state-8]);
 		sprite.setScale(-1, 1);
-	if (state < 7) {
+	}
+	if (state <= 7) {
+		sprite.setTexture(textures[state - 1]);
 		sprite.setScale(1, 1);
 	}
 }
