@@ -23,17 +23,29 @@ void Mario::jump(bool down)
 	Vector2f posMario=sprite.getPosition();
 	if (down == 0)
 	{
-		if (((posMario.y + vy) < 784)&&!(((posMario.x + vx)<1074)&&(posMario.x + vx)>780)) {
+		if ((((posMario.y + vy) < 784)&&((posMario.y + vy)>662))&&!(((posMario.x + vx)<1154)&&(posMario.x + vx)>800) && (vy<0)) {
 			sprite.setPosition((posMario.x + vx),(784));
-			cout << vy<<endl;
-			vy = 1;
+		
+			vy = 0;
+		}
+		if ((posMario.y + vy) > 892)  {
+			sprite.setPosition((posMario.x + vx), (892));
+			vy = 0;
+			isJump = 0;
+
+			if (state == 6) {
+				state = 1;
+			}
+			if (state == 13) {
+				state = 8;
+			}
 		}
 		
 		
 		else 
 		{ 
 			sprite.move(Vector2f(vx, vy));
-			vy += 5;
+			vy += 3;
 		}
 	}
 	if (down == 1)
@@ -60,6 +72,8 @@ void Mario::move(WalkDirection dir)
 		{
 			sprite.move(sf::Vector2f(speed+60,0));
 			state = 8;
+
+			vx = 0;
 		}
 		else if (dir == WalkDirection::Left)
 		{
@@ -142,11 +156,13 @@ void Mario::move(WalkDirection dir)
 		{
 			sprite.move(sf::Vector2f(-speed-60, 0));
 			state = 1;
+			vx=0;
 		}
 		else if (dir == WalkDirection::Right)
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 9;
+			//vx = speed;
 		}
 		else if (isJump)
 		{
@@ -219,10 +235,12 @@ void Mario::move(WalkDirection dir)
 	
 	
 	if (state > 7){
+		heading = 1;
 		sprite.setTexture(textures[state-8]);
 		sprite.setScale(-1, 1);
 	}
 	if (state <= 7) {
+		heading = 0;
 		sprite.setTexture(textures[state - 1]);
 		sprite.setScale(1, 1);
 	}

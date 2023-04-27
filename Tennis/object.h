@@ -10,6 +10,7 @@ public:
 	Sprite sprite;
 	Vector2f pos;
 	int state, isJump, isFall;
+	int heading;
 
 	bool footstate{};
 

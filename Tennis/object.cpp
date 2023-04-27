@@ -35,7 +35,6 @@ void Object::jump(bool down) {
 
 bool Object::onFloor() {
 	Vector2f posObject = sprite.getPosition();
-	cout << posObject.y << endl;
 	if ((730 < posObject.y) && (posObject.y < 770)) {
 
 		return 1;

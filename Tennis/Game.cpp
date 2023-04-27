@@ -6,7 +6,7 @@ Game::Game() {
 	
 
 	Background();
-	mario.setPosition(Vector2f((360), (892)));//892
+	mario.setPosition(Vector2f((560), (892)));//892
 
 	mario.isJump = 0;
 	mario.isFall = 0;
@@ -15,12 +15,14 @@ Game::Game() {
 	while (window->isOpen())
 	{
 		Event event;
-		cout << mario.onFloor() << endl;
+		
+		
 		window->pollEvent(event);
+		cout << event.key.code << "         " << "" << endl;
 		{
 			if (event.type == Event::Closed)
 				window->close();
-
+			
 			if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) //mario will stay subtle if there is now key pressed
 			{
 				mario.move(mario.WalkDirection::Null);
