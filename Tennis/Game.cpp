@@ -6,7 +6,7 @@ Game::Game() {
 	
 
 	Background();
-	mario.setPosition(Vector2f((890), (892)));//892
+	mario.setPosition(Vector2f((890), (312)));//892
 
 	mario.isJump = 0;
 	mario.isFall = 0;
@@ -42,7 +42,7 @@ Game::Game() {
 				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
 				{
 					mario.isJump = 1;
-					mario.vy = -50;
+					mario.vy = -40;
 				}
 				if (mario.isJump)
 				{
@@ -97,9 +97,9 @@ void Game::Background(void) {
 	bgTextures[1].loadFromFile("../assets/pipeS.png");
 	bgSprites[2].setTexture(bgTextures[1]);
 	bgSprites[2].setScale({ -1,1 });
-	bgSprites[2].setPosition({ 1920,150 });
+	bgSprites[2].setPosition({ 1920,75 });
 	bgSprites[3].setTexture(bgTextures[1]);
-	bgSprites[3].setPosition({ 0, 150 });
+	bgSprites[3].setPosition({ 0, 75 });
 
 	bgTextures[2].loadFromFile("../assets/floor.png");
 	bgSprites[4].setTexture(bgTextures[2]);
@@ -127,13 +127,13 @@ void Game::Background(void) {
 		bgSprites[i + 68].setPosition({ float(1620 + i * 30), 525 });
 	}
 	for (int i = 0; i < 30; i++) {
-		bgSprites[i + 78].setPosition({ float(480 + i * 30), 480 });
+		bgSprites[i + 78].setPosition({ float(510 + i * 30), 400 });
 	}
 	for (int i = 0; i < 24; i++) {
-		bgSprites[i + 108].setPosition({ float(i * 30), 300 });
+		bgSprites[i + 108].setPosition({ float(i * 30), 200 });
 	}
 	for (int i = 0; i < 24; i++) {
-		bgSprites[i + 132].setPosition({ float(1200 + i * 30), 300 });
+		bgSprites[i + 132].setPosition({ float(1200 + i * 30), 200 });
 	}
 }
 

@@ -23,11 +23,6 @@ void Mario::jump(bool down)
 	Vector2f posMario=sprite.getPosition();
 	if (down == 0)
 	{
-		if ((((posMario.y + vy) < 784)&&((posMario.y + vy)>662))&&!(((posMario.x + vx)<(1074+heading*66))&&(posMario.x + vx)>(780+heading*66)) && (vy<0)) {
-			sprite.setPosition((posMario.x + vx),(784));
-		
-			vy = 0;
-		}
 		if ((posMario.y + vy) > 892) {
 			sprite.setPosition((posMario.x + vx), (892));
 			vy = 0;
@@ -42,6 +37,12 @@ void Mario::jump(bool down)
 			}
 		}
 
+
+		if ((((posMario.y + vy) < 784)&&((posMario.y + vy)>662))&&!(((posMario.x + vx)<(1074+heading*66))&&(posMario.x + vx)>(780+heading*66)) && (vy<0)) {
+			sprite.setPosition((posMario.x + vx),(784));
+		
+			vy = 0;
+		}
 		if ((((posMario.y + vy) < 784) && ((posMario.y + vy) > 662)) && !(((posMario.x + vx) < (1074 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) > (780 + heading * 70 + ~heading * 10))) && (vy > 0)) {
 			sprite.setPosition((posMario.x + vx), (662));
 			vy = 0;
@@ -54,8 +55,77 @@ void Mario::jump(bool down)
 			if (heading == 1) {
 				state = 8;
 			}
-
 		}
+
+
+
+		if ((((posMario.y + vy) < 559) && ((posMario.y + vy) > 437)) && !(((posMario.x + vx) < (1554 + heading * 66)) && (posMario.x + vx) > (300 + heading * 66)) && (vy < 0)) {
+			sprite.setPosition((posMario.x + vx), (559));
+
+			vy = 0;
+		}
+		if ((((posMario.y + vy) < 559) && ((posMario.y + vy) > 437)) && !(((posMario.x + vx) < (1554 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) > (300 + heading * 70 + ~heading * 10))) && (vy > 0)) {
+			sprite.setPosition((posMario.x + vx), (437));
+			vy = 0;
+			vx = 0;
+			isJump = 0;
+
+			if (heading == 0) {
+				state = 1;
+			}
+			if (heading == 1) {
+				state = 8;
+			}
+		}
+
+
+
+
+
+
+
+		if ((((posMario.y + vy) < 434) && ((posMario.y + vy) > 312)) && (((posMario.x + vx) > (444 + heading * 66)) && (posMario.x + vx) < (1410 + heading * 66)) && (vy < 0)) {
+			sprite.setPosition((posMario.x + vx), (434));
+		
+			vy = 0;
+		}
+		if ((((posMario.y + vy) < 434) && ((posMario.y + vy) > 312)) && (((posMario.x + vx) > (444 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) < (1410 + heading * 70 + ~heading * 10))) && (vy > 0)) {
+			sprite.setPosition((posMario.x + vx), (312));
+			vy = 0;
+			vx = 0;
+			isJump = 0;
+
+			if (heading == 0) {
+				state = 1;
+			}
+			if (heading == 1) {
+				state = 8;
+			}
+		}
+
+
+
+
+
+		if ((((posMario.y + vy) < 234) && ((posMario.y + vy) > 112)) && !(((posMario.x + vx) < (1134 + heading * 66)) && (posMario.x + vx) > (720 + heading * 66)) && (vy < 0)) {
+			sprite.setPosition((posMario.x + vx), (234));
+
+			vy = 0;
+		}
+		if ((((posMario.y + vy) < 234) && ((posMario.y + vy) > 112)) && !(((posMario.x + vx) < (1134 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) > (720 + heading * 70 + ~heading * 10))) && (vy > 0)) {
+			sprite.setPosition((posMario.x + vx), (112));
+			vy = 0;
+			vx = 0;
+			isJump = 0;
+
+			if (heading == 0) {
+				state = 1;
+			}
+			if (heading == 1) {
+				state = 8;
+			}
+		}
+
 		
 		
 		else 
