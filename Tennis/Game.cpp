@@ -6,7 +6,7 @@ Game::Game() {
 	
 
 	Background();
-	mario.setPosition(Vector2f((560), (892)));//892
+	mario.setPosition(Vector2f((890), (892)));//892
 
 	mario.isJump = 0;
 	mario.isFall = 0;

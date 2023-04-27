@@ -23,22 +23,38 @@ void Mario::jump(bool down)
 	Vector2f posMario=sprite.getPosition();
 	if (down == 0)
 	{
-		if ((((posMario.y + vy) < 784)&&((posMario.y + vy)>662))&&!(((posMario.x + vx)<1154)&&(posMario.x + vx)>800) && (vy<0)) {
+		if ((((posMario.y + vy) < 784)&&((posMario.y + vy)>662))&&!(((posMario.x + vx)<(1074+heading*66))&&(posMario.x + vx)>(780+heading*66)) && (vy<0)) {
 			sprite.setPosition((posMario.x + vx),(784));
 		
 			vy = 0;
 		}
-		if ((posMario.y + vy) > 892)  {
+		if ((posMario.y + vy) > 892) {
 			sprite.setPosition((posMario.x + vx), (892));
 			vy = 0;
+			vx = 0;
 			isJump = 0;
 
-			if (state == 6) {
+			if (heading == 0) {
 				state = 1;
 			}
-			if (state == 13) {
+			if (heading == 1) {
 				state = 8;
 			}
+		}
+
+		if ((((posMario.y + vy) < 784) && ((posMario.y + vy) > 662)) && !(((posMario.x + vx) < (1074 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) > (780 + heading * 70 + ~heading * 10))) && (vy > 0)) {
+			sprite.setPosition((posMario.x + vx), (662));
+			vy = 0;
+			vx = 0;
+			isJump = 0;
+
+			if (heading==0) {
+				state = 1;
+			}
+			if (heading == 1) {
+				state = 8;
+			}
+
 		}
 		
 		
@@ -162,7 +178,6 @@ void Mario::move(WalkDirection dir)
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 9;
-			//vx = speed;
 		}
 		else if (isJump)
 		{
