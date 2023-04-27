@@ -3,7 +3,6 @@
 
 Mario::Mario ()
 {
-
 	char path[64];
 	for (int i = 1; i < 8; i++) 
 	{
@@ -12,26 +11,30 @@ Mario::Mario ()
 	}
 
 	state = 1;
-	
+	int footstate;
 	sprite.setTexture(textures[state]);
 }
 
 
 
-void Mario::draw(RenderWindow* window)
-{
-	window->draw(sprite);
-}
-
 void Mario::jump(bool down)
 {
+	
+	Vector2f posMario=sprite.getPosition();
 	if (down == 0)
 	{
-		
-		{
-		sprite.move(Vector2f(vx, vy));
+		if (((posMario.y + vy) < 784)&&!(((posMario.x + vx)<1074)&&(posMario.x + vx)>780)) {
+			sprite.setPosition((posMario.x + vx),(784));
+			cout << vy<<endl;
+			vy = 1;
 		}
 		
+		
+		else 
+		{ 
+			sprite.move(Vector2f(vx, vy));
+			vy += 5;
+		}
 	}
 	if (down == 1)
 	{
@@ -50,9 +53,9 @@ void Mario::move(WalkDirection dir)
 {
 
 	int speed=10;
-	int footstate = 0;
 	switch (state) {
 	case 1:
+		
 		if (dir == WalkDirection::Right)
 		{
 			sprite.move(sf::Vector2f(speed+60,0));

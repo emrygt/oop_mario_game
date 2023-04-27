@@ -5,16 +5,12 @@
 class Mario : public Object {
 
 public:
-	float vx; 
-	float vy;
-	enum WalkDirection {
-		Left,
-		Right,
-		Space
-	};
+	float vx{};
+	float vy{};
+	int isHeadBump{};
+	
 	Mario();
 	void move(WalkDirection dir);
 	void jump(bool);
 	void fall(void);
-	void draw(RenderWindow*);
 };

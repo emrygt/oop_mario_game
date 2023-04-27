@@ -2,30 +2,38 @@
 
 Game::Game() {
 	window = new RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mario");
+	
+	
+
 	Background();
-	mario.setPosition(Vector2f((300), (500)));
+	mario.setPosition(Vector2f((360), (892)));//892
 
 	mario.isJump = 0;
 	mario.isFall = 0;
+	mario.footstate = 0;
 
 	while (window->isOpen())
 	{
 		Event event;
-
+		cout << mario.onFloor() << endl;
 		window->pollEvent(event);
 		{
 			if (event.type == Event::Closed)
 				window->close();
 
-			if ((event.type == sf::Event::KeyPressed) || mario.isJump || mario.isFall)
+			if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) //mario will stay subtle if there is now key pressed
 			{
-				cout << event.key.code << endl;
-
-				if (event.key.code == sf::Keyboard::Right && !(event.key.code == sf::Keyboard::Left))
+				mario.move(mario.WalkDirection::Null);
+			}
+			if ((event.type == sf::Event::KeyPressed) || (mario.state!=1 && mario.state != 8))
+			{
+			
+				
+				if (event.key.code == sf::Keyboard::Right)
 				{
 					mario.move(mario.WalkDirection::Right);
 				}
-				if (event.key.code == sf::Keyboard::Left && !(event.key.code == sf::Keyboard::Right))
+				if (event.key.code == sf::Keyboard::Left)
 				{
 					mario.move(mario.WalkDirection::Left);
 				}
@@ -36,8 +44,7 @@ Game::Game() {
 				}
 				if (mario.isJump)
 				{
-					mario.move(mario.WalkDirection::Space);
-					mario.vy += 5;
+					mario.move(mario.WalkDirection::Null);
 				}
 				if (event.key.code == sf::Keyboard::F && !mario.isFall)
 				{
@@ -47,10 +54,12 @@ Game::Game() {
 				}
 				if (mario.isFall)
 				{
-					mario.move(mario.WalkDirection::Space);
+					mario.move(mario.WalkDirection::Null);
 					mario.vy += 3;
 				}
 			}
+
+			
 		}
 
 		window->clear();
@@ -125,3 +134,4 @@ void Game::Background(void) {
 		bgSprites[i + 132].setPosition({ float(1200 + i * 30), 300 });
 	}
 }
+
