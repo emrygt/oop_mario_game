@@ -25,13 +25,13 @@ void Mario::jump(bool down)
 	{	
 		if (onFloor()) {
 			
-			if(posMario.y>750)
+			if(posMario.y>FLOOR2Y)
 				sprite.setPosition((posMario.x + vx), (FLOOR1Y - MARIO_HEIGHT));
-			else if (posMario.y > 525)
+			else if (posMario.y > FLOOR3Y)
 				sprite.setPosition((posMario.x + vx), (FLOOR2Y - MARIO_HEIGHT));
-			else if (posMario.y > 400)
+			else if (posMario.y > FLOOR4Y)
 				sprite.setPosition((posMario.x + vx), (FLOOR3Y - MARIO_HEIGHT));
-			else if (posMario.y > 200)
+			else if (posMario.y > FLOOR5Y)
 				sprite.setPosition((posMario.x + vx), (FLOOR4Y - MARIO_HEIGHT));
 			else
 				sprite.setPosition((posMario.x + vx), (FLOOR5Y - MARIO_HEIGHT));
@@ -42,41 +42,41 @@ void Mario::jump(bool down)
 				state = 1;
 			if (heading == 1) 
 				state = 8;
-
 		}
 
-		if ((((posMario.y + vy) < FLOOR2Y+BOXSIZE)&&((posMario.y + vy)> FLOOR2Y + BOXSIZE - MARGIN))&&!(((posMario.x + vx)<(WINDOW_WIDTH-FLOOR2BOX*BOXSIZE-MARIO_WIDTH+heading* MARIO_WIDTH))&&(posMario.x + vx)>(FLOOR2BOX * BOXSIZE + heading* MARIO_WIDTH)) && (vy<0)) {
-			sprite.setPosition((posMario.x + vx),(FLOOR2Y + BOXSIZE));
-			vy = 0;
-		}
-		
-		else if ((((posMario.y + vy) < FLOOR3Y + BOXSIZE) && ((posMario.y + vy) > FLOOR3Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR3BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR3BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) {
-			sprite.setPosition((posMario.x + vx), (FLOOR3Y + BOXSIZE));
-			vy = 0;
-		}
-
-		else if ((((posMario.y + vy) < FLOOR4Y + BOXSIZE) && ((posMario.y + vy) > FLOOR4Y + BOXSIZE - MARGIN)) && (((posMario.x + vx) > ((WINDOW_WIDTH - FLOOR4BOX * BOXSIZE)/2 + heading * MARIO_WIDTH)) && (posMario.x + vx) < (((WINDOW_WIDTH+FLOOR4BOX*BOXSIZE)/2) + heading * MARIO_WIDTH)) && (vy < 0)) {
-			sprite.setPosition((posMario.x + vx), (FLOOR4Y + BOXSIZE));
-			vy = 0;
-		}
-		
-		else if ((((posMario.y + vy) < FLOOR5Y + BOXSIZE) && ((posMario.y + vy) > FLOOR5Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR5BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR5BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) {
-			sprite.setPosition((posMario.x + vx), (FLOOR5Y + BOXSIZE));
+		if (headBump()) {
 			vy = 0;
 		}
 	
 		else 
 		{ 
-			sprite.move(Vector2f(vx/30, vy));
-			vy += 0.0015;
+			sprite.move(Vector2f(vx/30, vy));// if onFloor and headBump is zero, continue jumping
+			vy += 0.0015; // gravity
 		}
 	}
 
 	if (down == 1)
 	{
-		isJump = 1;
+		isJump = 1; // if onFloor is 0 and mario is not jumping, fall to down floor with vy=0
 	}
 }
+
+bool Mario::headBump() {
+
+	Vector2f posMario = sprite.getPosition();
+
+	if ((((posMario.y + vy) < FLOOR2Y + BOXSIZE) && ((posMario.y + vy) > FLOOR2Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR2BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR2BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
+		return 1;
+	else if ((((posMario.y + vy) < FLOOR3Y + BOXSIZE) && ((posMario.y + vy) > FLOOR3Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR3BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR3BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
+		return 1;
+	else if ((((posMario.y + vy) < FLOOR4Y + BOXSIZE) && ((posMario.y + vy) > FLOOR4Y + BOXSIZE - MARGIN)) && (((posMario.x + vx) > ((WINDOW_WIDTH - FLOOR4BOX * BOXSIZE) / 2 + heading * MARIO_WIDTH)) && (posMario.x + vx) < (((WINDOW_WIDTH + FLOOR4BOX * BOXSIZE) / 2) + heading * MARIO_WIDTH)) && (vy < 0)) 
+		return 1;
+	else if ((((posMario.y + vy) < FLOOR5Y + BOXSIZE) && ((posMario.y + vy) > FLOOR5Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR5BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR5BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
+		return 1;
+	return 0;
+
+}
+
 
 void Mario::fall(void)
 {

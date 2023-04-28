@@ -22,7 +22,7 @@ public:
 
 public:
 	Object();
-	Vector2f getPosition();
+	Vector2f getposition();
 	void setPosition(Vector2f);
 	void draw(RenderWindow*);
 	void move(void);
@@ -30,7 +30,6 @@ public:
 	void jump(bool);
 
 	bool onFloor();
-	bool headBump();
 
 
 

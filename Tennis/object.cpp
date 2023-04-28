@@ -5,7 +5,7 @@ Object::Object() {
 
 }
 
-Vector2f Object::getPosition()
+Vector2f Object::getposition()
 {
 	return{ sprite.getPosition() };
 }
@@ -40,25 +40,19 @@ bool Object::onFloor() {
 	if ((posObject.y + vy) > 892) {
 		return 1;
 	}
-	else if ((((posObject.y + vy) < FLOOR2Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR2Y - MARIO_HEIGHT))) && !(((posObject.x) < (1140 - heading * 10 - !heading * 36)) && ((posObject.x) > (780 + heading * 70 + ~heading * 10))) && (vy >= 0)) {
+	else if ((((posObject.y + vy) < FLOOR2Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR2Y - MARIO_HEIGHT))) && !(((posObject.x) < (WINDOW_WIDTH-FLOOR2BOX*BOXSIZE - heading * 10 - !heading * 36)) && ((posObject.x) > (FLOOR2BOX*BOXSIZE + heading * 70 + ~heading * 10))) && (vy >= 0)) {
 		return 1;
 	}
-	else if ((((posObject.y + vy) < FLOOR3Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR3Y - MARIO_HEIGHT))) && !(((posObject.x) < (1620 - heading * 10 - !heading * 36)) && ((posObject.x) > (300 + heading * 70 + ~heading * 10))) && (vy >= 0)) {
+	else if ((((posObject.y + vy) < FLOOR3Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR3Y - MARIO_HEIGHT))) && !(((posObject.x) < (WINDOW_WIDTH - FLOOR3BOX * BOXSIZE - heading * 10 - !heading * 36)) && ((posObject.x) > (FLOOR3BOX * BOXSIZE + heading * 70 + ~heading * 10))) && (vy >= 0)) {
 		return 1;
 	}
-	else if ((((posObject.y + vy) < FLOOR4Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR4Y - MARIO_HEIGHT))) && (((posObject.x) > (510 - heading * 10 - !heading * 36)) && ((posObject.x) < (1410 + heading * 70 + ~heading * 10))) && (vy >= 0)) {
+	else if ((((posObject.y + vy) < FLOOR4Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR4Y - MARIO_HEIGHT))) && (((posObject.x) > ((WINDOW_WIDTH - FLOOR4BOX * BOXSIZE)/2 - heading * 10 - !heading * 36) && ((posObject.x) < (WINDOW_WIDTH + FLOOR4BOX * BOXSIZE) / 2 + ~heading * 10))) && (vy >= 0)) {
 		return 1;
 	}
-	else if ((((posObject.y + vy) < FLOOR5Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR5Y - MARIO_HEIGHT))) && !(((posObject.x) < (1200 - heading * 10 - !heading * 36)) && ((posObject.x) > (720 + heading * 70 + ~heading * 10))) && (vy >= 0)) {
+	else if ((((posObject.y + vy) < FLOOR5Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR5Y - MARIO_HEIGHT))) && !(((posObject.x) < (WINDOW_WIDTH - FLOOR5BOX * BOXSIZE - heading * 10 - !heading * 36)) && ((posObject.x) > (FLOOR5BOX * BOXSIZE + heading * 70 + ~heading * 10))) && (vy >= 0)) {
 		return 1;
 	}
 	return 0;
 }
 
 
-bool Object::headBump() {
-
-	Vector2f posObject = sprite.getPosition();
-	return 0;
-
-}

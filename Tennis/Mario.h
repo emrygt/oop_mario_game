@@ -13,4 +13,6 @@ public:
 	void move(WalkDirection dir);
 	void jump(bool);
 	void fall(void);
+	bool headBump();
+
 };

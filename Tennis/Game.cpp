@@ -64,12 +64,7 @@ Game::Game() {
 			mario.jump(1);
 		}
 
-			
-		
-
 		window->clear();
-
-
 
 		for (int i = 0; i < 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX*2; i++) {
 			window->draw(bgSprites[i]);
