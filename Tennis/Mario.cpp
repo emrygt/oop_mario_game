@@ -67,11 +67,11 @@ bool Mario::headBump() {
 
 	if ((((posMario.y + vy) < FLOOR2Y + BOXSIZE) && ((posMario.y + vy) > FLOOR2Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR2BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR2BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
 		return 1;
-	else if ((((posMario.y + vy) < FLOOR3Y + BOXSIZE) && ((posMario.y + vy) > FLOOR3Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR3BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR3BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
+	else if ((((posMario.y + vy) < FLOOR3Y + BOXSIZE) && ((posMario.y + vy) > FLOOR3Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR3BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH )) && (posMario.x + vx) > (FLOOR3BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
 		return 1;
-	else if ((((posMario.y + vy) < FLOOR4Y + BOXSIZE) && ((posMario.y + vy) > FLOOR4Y + BOXSIZE - MARGIN)) && (((posMario.x + vx) > ((WINDOW_WIDTH - FLOOR4BOX * BOXSIZE) / 2 + heading * MARIO_WIDTH)) && (posMario.x + vx) < (((WINDOW_WIDTH + FLOOR4BOX * BOXSIZE) / 2) + heading * MARIO_WIDTH)) && (vy < 0)) 
+	else if ((((posMario.y + vy) < FLOOR4Y + BOXSIZE) && ((posMario.y + vy) > FLOOR4Y + BOXSIZE - MARGIN)) && (((posMario.x + vx) > ((WINDOW_WIDTH - FLOOR4BOX * BOXSIZE) / 2 - MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) < (((WINDOW_WIDTH + FLOOR4BOX * BOXSIZE) / 2) + heading * MARIO_WIDTH)) && (vy < 0))
 		return 1;
-	else if ((((posMario.y + vy) < FLOOR5Y + BOXSIZE) && ((posMario.y + vy) > FLOOR5Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR5BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR5BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
+	else if ((((posMario.y + vy) < FLOOR5Y + BOXSIZE) && ((posMario.y + vy) > FLOOR5Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR5BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH )) && (posMario.x + vx) > (FLOOR5BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
 		return 1;
 	return 0;
 
