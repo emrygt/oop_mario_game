@@ -25,7 +25,7 @@ void Mario::jump(bool down)
 	{	
 		switch (whichFloor()) {
 			case 1:
-				sprite.setPosition((posMario.x + vx), (892));
+				sprite.setPosition((posMario.x + vx), (FLOOR1Y-MARIO_HEIGHT));
 				vx = 0;
 				vy = 0;
 				isJump = 0;
@@ -36,7 +36,7 @@ void Mario::jump(bool down)
 				break;
 
 			case 2:
-				sprite.setPosition((posMario.x + vx), (662));
+				sprite.setPosition((posMario.x + vx), (FLOOR2Y - MARIO_HEIGHT));
 				vx = 0;
 				vy = 0;
 				isJump = 0;
@@ -47,7 +47,7 @@ void Mario::jump(bool down)
 				break;
 
 			case 3:
-				sprite.setPosition((posMario.x + vx), (437));
+				sprite.setPosition((posMario.x + vx), (FLOOR3Y - MARIO_HEIGHT));
 				vx = 0;
 				vy = 0;
 				isJump = 0;
@@ -58,7 +58,7 @@ void Mario::jump(bool down)
 				break;
 
 			case 4:
-				sprite.setPosition((posMario.x + vx), (312));
+				sprite.setPosition((posMario.x + vx), (FLOOR4Y - MARIO_HEIGHT));
 				vx = 0;
 				vy = 0;
 				isJump = 0;
@@ -69,7 +69,7 @@ void Mario::jump(bool down)
 				break;
 
 			case 5:
-				sprite.setPosition((posMario.x + vx), (112));
+				sprite.setPosition((posMario.x + vx), (FLOOR5Y - MARIO_HEIGHT));
 				vx = 0;
 				vy = 0;
 				isJump = 0;
@@ -82,30 +82,30 @@ void Mario::jump(bool down)
 				
 		}
 
-		if ((((posMario.y + vy) < 784)&&((posMario.y + vy)>662))&&!(((posMario.x + vx)<(1074+heading*66))&&(posMario.x + vx)>(780+heading*66)) && (vy<0)) {
-			sprite.setPosition((posMario.x + vx),(784));
+		if ((((posMario.y + vy) < FLOOR2Y+BOXSIZE)&&((posMario.y + vy)> FLOOR2Y + BOXSIZE - MARGIN))&&!(((posMario.x + vx)<(1074+heading*66))&&(posMario.x + vx)>(780+heading*66)) && (vy<0)) {
+			sprite.setPosition((posMario.x + vx),(FLOOR2Y + BOXSIZE));
 			vy = 0;
 		}
 		
-		else if ((((posMario.y + vy) < 559) && ((posMario.y + vy) > 437)) && !(((posMario.x + vx) < (1554 + heading * 66)) && (posMario.x + vx) > (300 + heading * 66)) && (vy < 0)) {
-			sprite.setPosition((posMario.x + vx), (559));
+		else if ((((posMario.y + vy) < FLOOR3Y + BOXSIZE) && ((posMario.y + vy) > FLOOR3Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (1554 + heading * 66)) && (posMario.x + vx) > (300 + heading * 66)) && (vy < 0)) {
+			sprite.setPosition((posMario.x + vx), (FLOOR3Y + BOXSIZE));
 			vy = 0;
 		}
 
-		else if ((((posMario.y + vy) < 434) && ((posMario.y + vy) > 312)) && (((posMario.x + vx) > (444 + heading * 66)) && (posMario.x + vx) < (1410 + heading * 66)) && (vy < 0)) {
-			sprite.setPosition((posMario.x + vx), (434));
+		else if ((((posMario.y + vy) < FLOOR4Y + BOXSIZE) && ((posMario.y + vy) > FLOOR4Y + BOXSIZE - MARGIN)) && (((posMario.x + vx) > (444 + heading * 66)) && (posMario.x + vx) < (1410 + heading * 66)) && (vy < 0)) {
+			sprite.setPosition((posMario.x + vx), (FLOOR4Y + BOXSIZE));
 			vy = 0;
 		}
 		
-		else if ((((posMario.y + vy) < 234) && ((posMario.y + vy) > 112)) && !(((posMario.x + vx) < (1134 + heading * 66)) && (posMario.x + vx) > (720 + heading * 66)) && (vy < 0)) {
-			sprite.setPosition((posMario.x + vx), (234));
+		else if ((((posMario.y + vy) < FLOOR5Y + BOXSIZE) && ((posMario.y + vy) > FLOOR5Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (1134 + heading * 66)) && (posMario.x + vx) > (720 + heading * 66)) && (vy < 0)) {
+			sprite.setPosition((posMario.x + vx), (FLOOR5Y + BOXSIZE));
 			vy = 0;
 		}
 	
 		else 
 		{ 
-			sprite.move(Vector2f(vx/10, vy));
-			vy += 0.018;
+			sprite.move(Vector2f(vx/30, vy));
+			vy += 0.0015;
 		}
 	}
 
@@ -132,7 +132,7 @@ void Mario::move(WalkDirection dir)
 		
 		if (dir == WalkDirection::Right)
 		{
-			sprite.move(sf::Vector2f(speed+60,0));
+			sprite.move(sf::Vector2f(speed + MARIO_WIDTH,0));
 			state = 8;
 
 			vx = 0;
@@ -220,7 +220,7 @@ void Mario::move(WalkDirection dir)
 
 		if (dir == WalkDirection::Left) 
 		{
-			sprite.move(sf::Vector2f(-speed-60, 0));
+			sprite.move(sf::Vector2f(-speed - MARIO_WIDTH, 0));
 			state = 1;
 			vx=0;
 		}

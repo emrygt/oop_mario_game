@@ -6,7 +6,7 @@ Game::Game() {
 	
 
 	Background();
-	mario.setPosition(Vector2f((690), (662)));//892 312
+	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH)/2), (FLOOR1Y - MARIO_HEIGHT)));//892 312
 
 	mario.isJump = 0;
 	mario.isFall = 0;
@@ -16,7 +16,7 @@ Game::Game() {
 	{
 		Event event;
 		
-		
+		cout << mario.state << endl;
 		window->pollEvent(event);
 		
 		if (event.type == Event::Closed)
@@ -41,7 +41,7 @@ Game::Game() {
 			if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
 			{
 				mario.isJump = 1;
-				mario.vy = -3 ;
+				mario.vy = -0.88;
 			}
 			if (mario.isJump)
 			{
@@ -71,7 +71,7 @@ Game::Game() {
 
 
 
-		for (int i = 0; i < 156; i++) {
+		for (int i = 0; i < 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX*2; i++) {
 			window->draw(bgSprites[i]);
 		}
 
@@ -88,7 +88,7 @@ Game::Game() {
 void Game::Background(void) {
 
 
-	bgSprites = new Sprite[156];
+	bgSprites = new Sprite[6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX * 2];
 
 	bgTextures[0].loadFromFile("../assets/pipe.png");
 	bgSprites[0].setTexture(bgTextures[0]);
@@ -100,43 +100,43 @@ void Game::Background(void) {
 	bgTextures[1].loadFromFile("../assets/pipeS.png");
 	bgSprites[2].setTexture(bgTextures[1]);
 	bgSprites[2].setScale({ -1,1 });
-	bgSprites[2].setPosition({ 1920,75 });
+	bgSprites[2].setPosition({ WINDOW_WIDTH,75 });
 	bgSprites[3].setTexture(bgTextures[1]);
 	bgSprites[3].setPosition({ 0, 75 });
 
 	bgTextures[2].loadFromFile("../assets/floor.png");
 	bgSprites[4].setTexture(bgTextures[2]);
-	bgSprites[4].setPosition({ 0,980 });
+	bgSprites[4].setPosition({ 0,FLOOR1Y });
 	bgSprites[5].setTexture(bgTextures[2]);
-	bgSprites[5].setPosition({ 960,980 });
+	bgSprites[5].setPosition({ WINDOW_WIDTH/2,FLOOR1Y });
 
 	
 
 	bgTextures[3].loadFromFile("../assets/brick.png");
 
-	for (int i = 0; i < 150; i++) {
+	for (int i = 0; i < FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX * 2; i++) {
 		bgSprites[i + 6].setTexture(bgTextures[3]);
 	}
-	for (int i = 0; i < 26; i++) {
-		bgSprites[i + 6].setPosition({float(i * 30), 750});
+	for (int i = 0; i < FLOOR2BOX; i++) {
+		bgSprites[i + 6].setPosition({float(i * BOXSIZE), FLOOR2Y });
 	}
-	for (int i = 0; i < 26; i++) {
-		bgSprites[i + 32].setPosition({ float(1140 + i * 30), 750 });
+	for (int i = 0; i < FLOOR2BOX; i++) {
+		bgSprites[i + 6+ FLOOR2BOX].setPosition({ float(WINDOW_WIDTH-BOXSIZE* FLOOR2BOX + i * BOXSIZE), FLOOR2Y });
 	}
-	for (int i = 0; i < 10; i++) {
-		bgSprites[i + 58].setPosition({ float(i * 30), 525 });
+	for (int i = 0; i < FLOOR3BOX; i++) {
+		bgSprites[i + 6+ FLOOR2BOX*2].setPosition({ float(i * BOXSIZE), FLOOR3Y });
 	}
-	for (int i = 0; i < 10; i++) {
-		bgSprites[i + 68].setPosition({ float(1620 + i * 30), 525 });
+	for (int i = 0; i < FLOOR3BOX; i++) {
+		bgSprites[i + 6 + FLOOR2BOX * 2+ FLOOR3BOX].setPosition({ float(WINDOW_WIDTH - BOXSIZE * FLOOR3BOX + i * BOXSIZE), FLOOR3Y });
 	}
-	for (int i = 0; i < 30; i++) {
-		bgSprites[i + 78].setPosition({ float(510 + i * 30), 400 });
+	for (int i = 0; i < FLOOR4BOX; i++) {
+		bgSprites[i + 6 + FLOOR2BOX * 2 + FLOOR3BOX *2].setPosition({ float((WINDOW_WIDTH - BOXSIZE * FLOOR4BOX)/2  + i * BOXSIZE), FLOOR4Y });
 	}
-	for (int i = 0; i < 24; i++) {
-		bgSprites[i + 108].setPosition({ float(i * 30), 200 });
+	for (int i = 0; i < FLOOR5BOX; i++) {
+		bgSprites[i + 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX].setPosition({ float(i * BOXSIZE), FLOOR5Y });
 	}
-	for (int i = 0; i < 24; i++) {
-		bgSprites[i + 132].setPosition({ float(1200 + i * 30), 200 });
+	for (int i = 0; i < FLOOR5BOX; i++) {
+		bgSprites[i + 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX].setPosition({ float(WINDOW_WIDTH - BOXSIZE * FLOOR5BOX + i * BOXSIZE), FLOOR5Y });
 	}
 }
 
