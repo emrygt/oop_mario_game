@@ -33,7 +33,7 @@ void Object::jump(bool down) {
 
 }
 
-int Object::whichFloor() {
+bool Object::onFloor() {
 	Vector2f posObject = sprite.getPosition();
 	//cout << vy << endl;
 	if ((posObject.y + vy) > 892) {
@@ -43,19 +43,19 @@ int Object::whichFloor() {
 	}
 
 	else if ((((posObject.y + vy) < FLOOR2Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR2Y - MARIO_HEIGHT))) && !(((posObject.x) < (1140 - heading * 10 - !heading * 36)) && ((posObject.x) > (780 + heading * 70 + ~heading * 10))) && (vy >= 0)) {
-		return 2;
+		return 1;
 	}
 
 	else if ((((posObject.y + vy) < FLOOR3Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR3Y - MARIO_HEIGHT))) && !(((posObject.x) < (1620 - heading * 10 - !heading * 36)) && ((posObject.x) > (300 + heading * 70 + ~heading * 10))) && (vy >= 0)) {
-		return 3;
+		return 1;
 	}
 
 	else if ((((posObject.y + vy) < FLOOR4Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR4Y - MARIO_HEIGHT))) && (((posObject.x) > (510 - heading * 10 - !heading * 36)) && ((posObject.x) < (1410 + heading * 70 + ~heading * 10))) && (vy >= 0)) {
-		return 4;
+		return 1;
 	}
 
 	else if ((((posObject.y + vy) < FLOOR5Y - MARIO_HEIGHT + MARGIN) && ((posObject.y + vy) >= (FLOOR5Y - MARIO_HEIGHT))) && !(((posObject.x) < (1200 - heading * 10 - !heading * 36)) && ((posObject.x) > (720 + heading * 70 + ~heading * 10))) && (vy >= 0)) {
-		return 5;
+		return 1;
 	}
 	return 0;
 }

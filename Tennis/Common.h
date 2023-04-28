@@ -24,4 +24,4 @@ using namespace sf;
 
 #define BOXSIZE 30
 
-#define MARGIN 30
+#define MARGIN 45

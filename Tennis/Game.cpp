@@ -60,7 +60,7 @@ Game::Game() {
 			}
 		}
 
-		if (!mario.whichFloor()) {
+		if (!mario.onFloor()) {
 			mario.jump(1);
 		}
 

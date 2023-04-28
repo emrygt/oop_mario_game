@@ -23,63 +23,26 @@ void Mario::jump(bool down)
 	Vector2f posMario=sprite.getPosition();
 	if (down == 0)
 	{	
-		switch (whichFloor()) {
-			case 1:
+		if (onFloor()) {
+			
+			if(posMario.y>750)
 				sprite.setPosition((posMario.x + vx), (FLOOR1Y-MARIO_HEIGHT));
-				vx = 0;
-				vy = 0;
-				isJump = 0;
-				if (heading == 0) 
-					state = 1;
-				if (heading == 1) 
-					state = 8;
-				break;
-
-			case 2:
+			else if (posMario.y > 525)
 				sprite.setPosition((posMario.x + vx), (FLOOR2Y - MARIO_HEIGHT));
-				vx = 0;
-				vy = 0;
-				isJump = 0;
-				if (heading == 0)
-					state = 1;
-				if (heading == 1)
-					state = 8;
-				break;
-
-			case 3:
+			else if (posMario.y > 400)
 				sprite.setPosition((posMario.x + vx), (FLOOR3Y - MARIO_HEIGHT));
-				vx = 0;
-				vy = 0;
-				isJump = 0;
-				if (heading == 0)
-					state = 1;
-				if (heading == 1)
-					state = 8;
-				break;
-
-			case 4:
+			else if (posMario.y > 200)
 				sprite.setPosition((posMario.x + vx), (FLOOR4Y - MARIO_HEIGHT));
-				vx = 0;
-				vy = 0;
-				isJump = 0;
-				if (heading == 0)
-					state = 1;
-				if (heading == 1)
-					state = 8;
-				break;
-
-			case 5:
+			else
 				sprite.setPosition((posMario.x + vx), (FLOOR5Y - MARIO_HEIGHT));
-				vx = 0;
-				vy = 0;
-				isJump = 0;
-				if (heading == 0)
-					state = 1;
-				if (heading == 1)
-					state = 8;
-				break;
+			vx = 0;
+			vy = 0;
+			isJump = 0;
+			if (heading == 0) 
+				state = 1;
+			if (heading == 1) 
+				state = 8;
 
-				
 		}
 
 		if ((((posMario.y + vy) < FLOOR2Y+BOXSIZE)&&((posMario.y + vy)> FLOOR2Y + BOXSIZE - MARGIN))&&!(((posMario.x + vx)<(WINDOW_WIDTH-FLOOR2BOX*BOXSIZE-MARIO_WIDTH+heading* MARIO_WIDTH))&&(posMario.x + vx)>(FLOOR2BOX * BOXSIZE + heading* MARIO_WIDTH)) && (vy<0)) {
