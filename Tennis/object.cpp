@@ -59,6 +59,6 @@ bool Object::onFloor() {
 bool Object::headBump() {
 
 	Vector2f posObject = sprite.getPosition();
-
+	return 0;
 
 }
