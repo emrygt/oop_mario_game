@@ -29,7 +29,7 @@ public:
 	void fall(void);
 	void jump(bool);
 
-	bool onFloor();
+	int whichFloor();
 
 
 

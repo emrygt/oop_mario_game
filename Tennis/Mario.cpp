@@ -22,121 +22,96 @@ void Mario::jump(bool down)
 	
 	Vector2f posMario=sprite.getPosition();
 	if (down == 0)
-	{
-		if ((posMario.y + vy) > 892) {
-			sprite.setPosition((posMario.x + vx), (892));
-			vy = 0;
-			vx = 0;
-			isJump = 0;
+	{	
+		switch (whichFloor()) {
+			case 1:
+				sprite.setPosition((posMario.x + vx), (892));
+				vx = 0;
+				vy = 0;
+				isJump = 0;
+				if (heading == 0) 
+					state = 1;
+				if (heading == 1) 
+					state = 8;
+				break;
 
-			if (heading == 0) {
-				state = 1;
-			}
-			if (heading == 1) {
-				state = 8;
-			}
+			case 2:
+				sprite.setPosition((posMario.x + vx), (662));
+				vx = 0;
+				vy = 0;
+				isJump = 0;
+				if (heading == 0)
+					state = 1;
+				if (heading == 1)
+					state = 8;
+				break;
+
+			case 3:
+				sprite.setPosition((posMario.x + vx), (437));
+				vx = 0;
+				vy = 0;
+				isJump = 0;
+				if (heading == 0)
+					state = 1;
+				if (heading == 1)
+					state = 8;
+				break;
+
+			case 4:
+				sprite.setPosition((posMario.x + vx), (312));
+				vx = 0;
+				vy = 0;
+				isJump = 0;
+				if (heading == 0)
+					state = 1;
+				if (heading == 1)
+					state = 8;
+				break;
+
+			case 5:
+				sprite.setPosition((posMario.x + vx), (112));
+				vx = 0;
+				vy = 0;
+				isJump = 0;
+				if (heading == 0)
+					state = 1;
+				if (heading == 1)
+					state = 8;
+				break;
+
+				
 		}
-
 
 		if ((((posMario.y + vy) < 784)&&((posMario.y + vy)>662))&&!(((posMario.x + vx)<(1074+heading*66))&&(posMario.x + vx)>(780+heading*66)) && (vy<0)) {
 			sprite.setPosition((posMario.x + vx),(784));
+			vy = 0;
+		}
 		
-			vy = 0;
-		}
-		if ((((posMario.y + vy) < 784) && ((posMario.y + vy) > 662)) && !(((posMario.x + vx) < (1074 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) > (780 + heading * 70 + ~heading * 10))) && (vy > 0)) {
-			sprite.setPosition((posMario.x + vx), (662));
-			vy = 0;
-			vx = 0;
-			isJump = 0;
-
-			if (heading==0) {
-				state = 1;
-			}
-			if (heading == 1) {
-				state = 8;
-			}
-		}
-
-
-
-		if ((((posMario.y + vy) < 559) && ((posMario.y + vy) > 437)) && !(((posMario.x + vx) < (1554 + heading * 66)) && (posMario.x + vx) > (300 + heading * 66)) && (vy < 0)) {
+		else if ((((posMario.y + vy) < 559) && ((posMario.y + vy) > 437)) && !(((posMario.x + vx) < (1554 + heading * 66)) && (posMario.x + vx) > (300 + heading * 66)) && (vy < 0)) {
 			sprite.setPosition((posMario.x + vx), (559));
-
 			vy = 0;
 		}
-		if ((((posMario.y + vy) < 559) && ((posMario.y + vy) > 437)) && !(((posMario.x + vx) < (1554 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) > (300 + heading * 70 + ~heading * 10))) && (vy > 0)) {
-			sprite.setPosition((posMario.x + vx), (437));
-			vy = 0;
-			vx = 0;
-			isJump = 0;
 
-			if (heading == 0) {
-				state = 1;
-			}
-			if (heading == 1) {
-				state = 8;
-			}
-		}
-
-
-
-
-
-
-
-		if ((((posMario.y + vy) < 434) && ((posMario.y + vy) > 312)) && (((posMario.x + vx) > (444 + heading * 66)) && (posMario.x + vx) < (1410 + heading * 66)) && (vy < 0)) {
+		else if ((((posMario.y + vy) < 434) && ((posMario.y + vy) > 312)) && (((posMario.x + vx) > (444 + heading * 66)) && (posMario.x + vx) < (1410 + heading * 66)) && (vy < 0)) {
 			sprite.setPosition((posMario.x + vx), (434));
+			vy = 0;
+		}
 		
-			vy = 0;
-		}
-		if ((((posMario.y + vy) < 434) && ((posMario.y + vy) > 312)) && (((posMario.x + vx) > (444 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) < (1410 + heading * 70 + ~heading * 10))) && (vy > 0)) {
-			sprite.setPosition((posMario.x + vx), (312));
-			vy = 0;
-			vx = 0;
-			isJump = 0;
-
-			if (heading == 0) {
-				state = 1;
-			}
-			if (heading == 1) {
-				state = 8;
-			}
-		}
-
-
-
-
-
-		if ((((posMario.y + vy) < 234) && ((posMario.y + vy) > 112)) && !(((posMario.x + vx) < (1134 + heading * 66)) && (posMario.x + vx) > (720 + heading * 66)) && (vy < 0)) {
+		else if ((((posMario.y + vy) < 234) && ((posMario.y + vy) > 112)) && !(((posMario.x + vx) < (1134 + heading * 66)) && (posMario.x + vx) > (720 + heading * 66)) && (vy < 0)) {
 			sprite.setPosition((posMario.x + vx), (234));
-
 			vy = 0;
 		}
-		if ((((posMario.y + vy) < 234) && ((posMario.y + vy) > 112)) && !(((posMario.x + vx) < (1134 + heading * 56 - ~heading * 10)) && ((posMario.x + vx) > (720 + heading * 70 + ~heading * 10))) && (vy > 0)) {
-			sprite.setPosition((posMario.x + vx), (112));
-			vy = 0;
-			vx = 0;
-			isJump = 0;
-
-			if (heading == 0) {
-				state = 1;
-			}
-			if (heading == 1) {
-				state = 8;
-			}
-		}
-
-		
-		
+	
 		else 
 		{ 
-			sprite.move(Vector2f(vx, vy));
-			vy += 3;
+			sprite.move(Vector2f(vx/10, vy));
+			vy += 0.018;
 		}
 	}
+
 	if (down == 1)
 	{
-
+		isJump = 1;
 	}
 }
 
@@ -150,7 +125,8 @@ void Mario::fall(void)
 void Mario::move(WalkDirection dir)
 {
 
-	int speed=10;
+	int speed=7;
+	int wait = 60;
 	switch (state) {
 	case 1:
 		
@@ -173,6 +149,7 @@ void Mario::move(WalkDirection dir)
 		break;
 
 	case 2:
+		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Left)
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
@@ -190,6 +167,7 @@ void Mario::move(WalkDirection dir)
 		
 		break;
 	case 3:
+		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Left && footstate == 0)
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
@@ -213,6 +191,7 @@ void Mario::move(WalkDirection dir)
 		}
 		break;
 	case 4:
+		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Left) 
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
@@ -238,6 +217,7 @@ void Mario::move(WalkDirection dir)
 		fall();
 		break;
 	case 8:
+
 		if (dir == WalkDirection::Left) 
 		{
 			sprite.move(sf::Vector2f(-speed-60, 0));
@@ -256,6 +236,7 @@ void Mario::move(WalkDirection dir)
 		break;
 
 	case 9:
+		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Right) 
 		{
 			sprite.move(sf::Vector2f(speed, 0));
@@ -272,6 +253,7 @@ void Mario::move(WalkDirection dir)
 		}
 		break;
 	case 10:
+		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Right && footstate == 0) 
 		{
 			sprite.move(sf::Vector2f(speed, 0));
@@ -295,6 +277,7 @@ void Mario::move(WalkDirection dir)
 		}
 		break;
 	case 11:
+		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Right)
 		{
 			sprite.move(sf::Vector2f(speed, 0));

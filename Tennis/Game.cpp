@@ -6,7 +6,7 @@ Game::Game() {
 	
 
 	Background();
-	mario.setPosition(Vector2f((890), (312)));//892
+	mario.setPosition(Vector2f((690), (662)));//892 312
 
 	mario.isJump = 0;
 	mario.isFall = 0;
@@ -18,51 +18,54 @@ Game::Game() {
 		
 		
 		window->pollEvent(event);
-		cout << event.key.code << "         " << "" << endl;
+		
+		if (event.type == Event::Closed)
+			window->close();
+		
+		if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) //mario will stay subtle if there is now key pressed
 		{
-			if (event.type == Event::Closed)
-				window->close();
+			mario.move(mario.WalkDirection::Null);
+		}
+		if ((event.type == sf::Event::KeyPressed) || (mario.state!=1 && mario.state != 8))
+		{
+		
 			
-			if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) //mario will stay subtle if there is now key pressed
+			if (event.key.code == sf::Keyboard::Right)
+			{
+				mario.move(mario.WalkDirection::Right);
+			}
+			if (event.key.code == sf::Keyboard::Left)
+			{
+				mario.move(mario.WalkDirection::Left);
+			}
+			if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
+			{
+				mario.isJump = 1;
+				mario.vy = -3 ;
+			}
+			if (mario.isJump)
 			{
 				mario.move(mario.WalkDirection::Null);
 			}
-			if ((event.type == sf::Event::KeyPressed) || (mario.state!=1 && mario.state != 8))
+			if (event.key.code == sf::Keyboard::F && !mario.isFall)
 			{
-			
-				
-				if (event.key.code == sf::Keyboard::Right)
-				{
-					mario.move(mario.WalkDirection::Right);
-				}
-				if (event.key.code == sf::Keyboard::Left)
-				{
-					mario.move(mario.WalkDirection::Left);
-				}
-				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
-				{
-					mario.isJump = 1;
-					mario.vy = -40;
-				}
-				if (mario.isJump)
-				{
-					mario.move(mario.WalkDirection::Null);
-				}
-				if (event.key.code == sf::Keyboard::F && !mario.isFall)
-				{
-					mario.isFall = 1;
-					mario.vy = 0;
-					mario.state = 7;
-				}
-				if (mario.isFall)
-				{
-					mario.move(mario.WalkDirection::Null);
-					mario.vy += 3;
-				}
+				mario.isFall = 1;
+				mario.vy = 0;
+				mario.state = 7;
 			}
+			if (mario.isFall)
+			{
+				mario.move(mario.WalkDirection::Null);
+				mario.vy += 3;
+			}
+		}
+
+		if (!mario.whichFloor()) {
+			mario.jump(1);
+		}
 
 			
-		}
+		
 
 		window->clear();
 
@@ -77,8 +80,8 @@ Game::Game() {
 
 
 		window->display();
-
-		sf::sleep(sf::milliseconds(100));
+		
+		//sf::sleep(sf::milliseconds(10));
 	}
 }
 

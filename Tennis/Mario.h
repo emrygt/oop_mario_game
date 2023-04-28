@@ -5,8 +5,8 @@
 class Mario : public Object {
 
 public:
-	float vx{};
-	float vy{};
+	//float vx{};
+	//float vy{};
 	int isHeadBump{};
 	
 	Mario();
