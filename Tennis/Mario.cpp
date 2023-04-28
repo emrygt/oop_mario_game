@@ -82,22 +82,22 @@ void Mario::jump(bool down)
 				
 		}
 
-		if ((((posMario.y + vy) < FLOOR2Y+BOXSIZE)&&((posMario.y + vy)> FLOOR2Y + BOXSIZE - MARGIN))&&!(((posMario.x + vx)<(1074+heading*66))&&(posMario.x + vx)>(780+heading*66)) && (vy<0)) {
+		if ((((posMario.y + vy) < FLOOR2Y+BOXSIZE)&&((posMario.y + vy)> FLOOR2Y + BOXSIZE - MARGIN))&&!(((posMario.x + vx)<(WINDOW_WIDTH-FLOOR2BOX*BOXSIZE-MARIO_WIDTH+heading* MARIO_WIDTH))&&(posMario.x + vx)>(FLOOR2BOX * BOXSIZE + heading* MARIO_WIDTH)) && (vy<0)) {
 			sprite.setPosition((posMario.x + vx),(FLOOR2Y + BOXSIZE));
 			vy = 0;
 		}
 		
-		else if ((((posMario.y + vy) < FLOOR3Y + BOXSIZE) && ((posMario.y + vy) > FLOOR3Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (1554 + heading * 66)) && (posMario.x + vx) > (300 + heading * 66)) && (vy < 0)) {
+		else if ((((posMario.y + vy) < FLOOR3Y + BOXSIZE) && ((posMario.y + vy) > FLOOR3Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR3BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR3BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) {
 			sprite.setPosition((posMario.x + vx), (FLOOR3Y + BOXSIZE));
 			vy = 0;
 		}
 
-		else if ((((posMario.y + vy) < FLOOR4Y + BOXSIZE) && ((posMario.y + vy) > FLOOR4Y + BOXSIZE - MARGIN)) && (((posMario.x + vx) > (444 + heading * 66)) && (posMario.x + vx) < (1410 + heading * 66)) && (vy < 0)) {
+		else if ((((posMario.y + vy) < FLOOR4Y + BOXSIZE) && ((posMario.y + vy) > FLOOR4Y + BOXSIZE - MARGIN)) && (((posMario.x + vx) > ((WINDOW_WIDTH - FLOOR4BOX * BOXSIZE)/2 + heading * MARIO_WIDTH)) && (posMario.x + vx) < (((WINDOW_WIDTH+FLOOR4BOX*BOXSIZE)/2) + heading * MARIO_WIDTH)) && (vy < 0)) {
 			sprite.setPosition((posMario.x + vx), (FLOOR4Y + BOXSIZE));
 			vy = 0;
 		}
 		
-		else if ((((posMario.y + vy) < FLOOR5Y + BOXSIZE) && ((posMario.y + vy) > FLOOR5Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (1134 + heading * 66)) && (posMario.x + vx) > (720 + heading * 66)) && (vy < 0)) {
+		else if ((((posMario.y + vy) < FLOOR5Y + BOXSIZE) && ((posMario.y + vy) > FLOOR5Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR5BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH + heading * MARIO_WIDTH)) && (posMario.x + vx) > (FLOOR5BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) {
 			sprite.setPosition((posMario.x + vx), (FLOOR5Y + BOXSIZE));
 			vy = 0;
 		}
