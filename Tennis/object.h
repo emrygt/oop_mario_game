@@ -30,6 +30,7 @@ public:
 	void jump(bool);
 
 	bool onFloor();
+	bool headBump();
 
 
 

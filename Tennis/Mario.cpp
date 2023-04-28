@@ -26,7 +26,7 @@ void Mario::jump(bool down)
 		if (onFloor()) {
 			
 			if(posMario.y>750)
-				sprite.setPosition((posMario.x + vx), (FLOOR1Y-MARIO_HEIGHT));
+				sprite.setPosition((posMario.x + vx), (FLOOR1Y - MARIO_HEIGHT));
 			else if (posMario.y > 525)
 				sprite.setPosition((posMario.x + vx), (FLOOR2Y - MARIO_HEIGHT));
 			else if (posMario.y > 400)
