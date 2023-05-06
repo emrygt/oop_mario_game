@@ -23,7 +23,7 @@ void Object::draw(RenderWindow* window)
 
 void Object::move(void) {
 
-}
+} 
 
 void Object::fall(void) {
 
