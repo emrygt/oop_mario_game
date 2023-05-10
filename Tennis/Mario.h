@@ -10,7 +10,7 @@ public:
 	int isHeadBump{};
 	
 	Mario();
-	void move(WalkDirection dir);
+	void move(WalkDirection);
 	void jump(bool);
 	void fall(void);
 	bool headBump();

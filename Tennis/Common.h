@@ -8,8 +8,10 @@ using namespace sf;
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
 //#define SPEED 1000
-#define MARIO_WIDTH 66
-#define MARIO_HEIGHT 88
+#define MARIO_WIDTH		66
+#define MARIO_HEIGHT	88
+#define TURTLE_WIDTH	68
+#define TURTLE_HEIGHT	66
 
 #define FLOOR2BOX 26
 #define FLOOR3BOX 10
