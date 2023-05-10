@@ -1,5 +1,9 @@
+#pragma once
+
 #include "Common.h"
 #include "Mario.h"
+#include "Turtle.h"
+
 
 class Game
 {

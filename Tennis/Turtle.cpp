@@ -1,3 +1,4 @@
+#pragma once
 #include "Turtle.h"
 
 //turtle ne zaman ve nasil oluyor onu belli etmedim
