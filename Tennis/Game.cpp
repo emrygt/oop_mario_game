@@ -2,15 +2,13 @@
 #include "Game.h"
 
 Game::Game() {
-	window = new RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mario");
-	
-	
+	window = new RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mario");		
 
 	Background();
 	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH)/2), (FLOOR5Y - MARIO_HEIGHT)));
 		
 	for (int k = 0; k < 5; k++) {
-		turtle[k].setPosition(Vector2f(-520000,-1000));
+		turtle[k].setPosition(Vector2f(-520000,-1000));	// just random number
 	}
 	turtle[0].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
 	turtleNo = 1;
@@ -29,12 +27,20 @@ Game::Game() {
 
 		if (turtleNo < 5) {
 			if (turtle[turtleNo - 1].getposition().y > FLOOR4Y) {
-				turtle[turtleNo].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
+				if (turtleNo % 2 == 0) {
+					turtle[turtleNo].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
+					turtle[turtleNo].state = 4;
+				}
+				else
+				{
+					turtle[turtleNo].setPosition(Vector2f(WINDOW_WIDTH - PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
+					turtle[turtleNo].state = 1;
+				}
 				turtleNo++;		
 			} 						
 		}
 
-		if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) //mario will stay subtle if there is now key pressed
+		if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) // mario will stay subtle if there is now key pressed
 		{
 			mario.move(mario.WalkDirection::Null);
 		}
@@ -105,11 +111,8 @@ Game::Game() {
 					mario.state = 7;
 			}
 		}
-		
-		//cout << side << endl;
-		window->display();
-		
-		//sf::sleep(sf::milliseconds(10));
+				
+		window->display();		
 	}
 }
 
