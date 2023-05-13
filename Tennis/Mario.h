@@ -14,5 +14,6 @@ public:
 	void jump(bool);
 	void fall(void);
 	bool headBump();
-
+	bool isWallHit();
+	bool isPipeHit();
 };

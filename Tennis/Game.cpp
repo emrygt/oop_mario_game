@@ -7,8 +7,8 @@ Game::Game() {
 	
 
 	Background();
-	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH)/2), (FLOOR1Y - MARIO_HEIGHT)));//892 312
-
+	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH)/2), (FLOOR5Y - MARIO_HEIGHT)));//892 312
+	turtle.setPosition(Vector2f(400, (FLOOR1Y - TURTLE_HEIGHT)));//892 312
 	mario.isJump = 0;
 	mario.isFall = 0;
 	mario.footstate = 0;
@@ -17,7 +17,7 @@ Game::Game() {
 	{
 		Event event;
 		
-		cout << mario.state << endl;
+		cout << mario.isPipeHit() << endl;
 		window->pollEvent(event);
 		
 		if (event.type == Event::Closed)
@@ -42,12 +42,12 @@ Game::Game() {
 			if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
 			{
 				mario.isJump = 1;
-				mario.vy = -0.88;
+				mario.vy = -24;	// initial jump speed
 			}
 			if (mario.isJump)
 			{
 				mario.move(mario.WalkDirection::Null);
-			}
+			}			
 			if (event.key.code == sf::Keyboard::F && !mario.isFall)
 			{
 				mario.isFall = 1;
@@ -59,10 +59,19 @@ Game::Game() {
 				mario.move(mario.WalkDirection::Null);
 				mario.vy += 3;
 			}
-		}
+		}		
 
 		if (!mario.onFloor()) {
 			mario.jump(1);
+		}
+
+		if (!turtle.onFloor()) {
+			turtle.isJump = 1;
+		}
+
+		if (turtle.isJump) {
+			turtle.move();
+			turtle.jump();
 		}
 
 		window->clear();
@@ -73,7 +82,8 @@ Game::Game() {
 
 
 		mario.draw(window);
-
+		turtle.draw(window);
+		turtle.move();
 
 		window->display();
 		

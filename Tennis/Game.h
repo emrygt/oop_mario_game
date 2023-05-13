@@ -11,7 +11,7 @@ class Game
 	Texture bgTextures[4];
 	Sprite* bgSprites;
 	Mario mario;
-	
+	Turtle turtle;
 
 public:
 	Game();

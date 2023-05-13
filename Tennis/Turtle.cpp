@@ -16,20 +16,65 @@ Turtle::Turtle() {
 	sprite.setTexture(textures[state]);
 }
 
+bool Turtle::isWallHit() {
+	Vector2f v = this->getposition();
+	if (v.x <= TURTLE_WIDTH && state < 4) {
+		return true;
+	}
+	if (v.x >= WINDOW_WIDTH - TURTLE_WIDTH - 5 && state >= 4) {
+		return true;
+	}
+	return false;
+}
+
+bool Turtle::isPipeHit() {
+	Vector2f v = this->getposition();
+	if (v.x <= TURTLE_WIDTH + PIPE_WIDTH && v.y >= FLOOR2Y) {
+		return true;
+	}
+	if (v.x >= WINDOW_WIDTH - TURTLE_WIDTH - 5 - PIPE_WIDTH && v.y >= FLOOR2Y) {
+		return true;
+	}
+	return false;
+}
+
+//ishinlanma
+
 void Turtle::move(void)
 {
 	int speed = 7;
 	int wait = 60;
+	if (isJump) {
+		sprite.move(sf::Vector2f(state >= 4 ? speed : -speed, vy));
+		vy += 3;
+		isJump = 0;
+		return;
+	}
+	if (isPipeHit()) {
+		Vector2f posTurtle = this->getposition();
+		if (posTurtle.x < WINDOW_WIDTH / 2) {
+			sprite.setPosition((PIPES_WIDTH - 20), (FLOOR5Y - TURTLE_HEIGHT - 50));
+			state = 4;
+		}
+		else {
+			sprite.setPosition((WINDOW_WIDTH - PIPES_WIDTH + 40), (FLOOR5Y - TURTLE_HEIGHT - 50));
+			state = 1;
+		}
+	}
 	switch (state) {
 	case 1:
 		sprite.setTexture(textures[0]);
 		sprite.setScale(-1, 1);
-		if (!isWallHit) {
-			sprite.move(sf::Vector2f(-speed, 0));
+		sprite.move(sf::Vector2f(-speed, 0));
+		wallHit = isWallHit();
+		if (!wallHit) {			
+
 			state = 2;
 			//vx = 0;
 		}
 		else {
+			wallHit = false;
+			sprite.move(sf::Vector2f(-TURTLE_WIDTH, 0));
 			state = 4;
 			footstate = false;
 		}
@@ -39,8 +84,9 @@ void Turtle::move(void)
 		sprite.setTexture(textures[1]);
 		sprite.setScale(-1, 1);
 		sf::sleep(sf::milliseconds(wait));
-		if (!isWallHit) {
-			sprite.move(sf::Vector2f(-speed, 0));
+		sprite.move(sf::Vector2f(-speed, 0));
+		wallHit = isWallHit();
+		if (!wallHit) {			
 			if (footstate) {
 				state = 1;
 				footstate = false;
@@ -51,6 +97,8 @@ void Turtle::move(void)
 			}
 		}
 		else {
+			wallHit = false;
+			sprite.move(sf::Vector2f(-TURTLE_WIDTH, 0));
 			state = 4;
 			footstate = false;
 		}
@@ -60,11 +108,14 @@ void Turtle::move(void)
 		sprite.setTexture(textures[2]);
 		sprite.setScale(-1, 1);
 		sf::sleep(sf::milliseconds(wait));
-		if (!isWallHit) {
-			sprite.move(sf::Vector2f(-speed, 0));
+		sprite.move(sf::Vector2f(-speed, 0));
+		wallHit = isWallHit();
+		if (!wallHit) {			
 			state = 2;
 		}
 		else {
+			wallHit = false;
+			sprite.move(sf::Vector2f(-TURTLE_WIDTH, 0));
 			state = 4;
 			footstate = false;
 		}
@@ -72,14 +123,17 @@ void Turtle::move(void)
 	case 4:
 		sprite.setTexture(textures[0]);
 		sprite.setScale(1, 1);
-		sf::sleep(sf::milliseconds(wait));
-		if (!isWallHit)
-		{
-			sprite.move(sf::Vector2f(speed, 0));
+		sf::sleep(sf::milliseconds(wait));		
+		sprite.move(sf::Vector2f(speed, 0));
+		wallHit = isWallHit();
+		if (!wallHit)
+		{			
 			state = 5;
 		}
 		else
 		{
+			wallHit = false;
+			sprite.move(sf::Vector2f(TURTLE_WIDTH, 0));
 			state = 1;
 			footstate = false;
 			//vx = -speed;
@@ -89,8 +143,9 @@ void Turtle::move(void)
 		sprite.setTexture(textures[1]);
 		sprite.setScale(1, 1);
 		sf::sleep(sf::milliseconds(wait));
-		if (!isWallHit) {
-			sprite.move(sf::Vector2f(speed, 0));
+		sprite.move(sf::Vector2f(speed, 0));
+		wallHit = isWallHit();
+		if (!wallHit) {			
 			if (footstate) {
 				state = 4;
 				footstate = false;
@@ -101,6 +156,8 @@ void Turtle::move(void)
 			}
 		}
 		else {
+			wallHit = false;
+			sprite.move(sf::Vector2f(TURTLE_WIDTH, 0));
 			state = 1;
 			footstate = false;
 		}
@@ -109,46 +166,45 @@ void Turtle::move(void)
 		sprite.setTexture(textures[2]);
 		sprite.setScale(1, 1);
 		sf::sleep(sf::milliseconds(wait));
-		if (!isWallHit) {
-			sprite.move(sf::Vector2f(speed, 0));
+		sprite.move(sf::Vector2f(speed, 0));
+		wallHit = isWallHit();
+		if (!wallHit) {			
 			state = 5;
 		}
 		else {
+			wallHit = false;
+			sprite.move(sf::Vector2f(TURTLE_WIDTH, 0));
 			state = 1;
 			footstate = false;
 		}
 		break;
-	case 7:
-		fall();
+	case 7:	//death
 		sprite.setTexture(textures[4]);
+		fall();		
 		break;
 	}	
 }
 
 void Turtle::fall(void)
 {
-	sprite.move(Vector2f(0, vy));
+	sprite.move(Vector2f(0, 0));
 }
 
-void Turtle::jump(bool down)
+void Turtle::jump(void)
 {
 	Vector2f posTurtle = sprite.getPosition();
-	if (!down)
-	{
-		if (onFloor()) {
-			if (posTurtle.y > FLOOR2Y)
-				sprite.setPosition((posTurtle.x + vx), (FLOOR1Y - TURTLE_HEIGHT));
-			else if (posTurtle.y > FLOOR3Y)
-				sprite.setPosition((posTurtle.x + vx), (FLOOR2Y - TURTLE_HEIGHT));
-			else if (posTurtle.y > FLOOR4Y)
-				sprite.setPosition((posTurtle.x + vx), (FLOOR3Y - TURTLE_HEIGHT));
-			else if (posTurtle.y > FLOOR5Y)
-				sprite.setPosition((posTurtle.x + vx), (FLOOR4Y - TURTLE_HEIGHT));
-			else
-				sprite.setPosition((posTurtle.x + vx), (FLOOR5Y - TURTLE_HEIGHT));
-			vy = 0;
-			isJump = 0;
-		}		
-	} else
-		isJump = 1; // if onFloor is 0 and turtle is not jumping, fall to down floor with vy=0
+	if (onFloor()) {
+		if (posTurtle.y > FLOOR2Y)
+			sprite.setPosition((posTurtle.x + vx), (FLOOR1Y - TURTLE_HEIGHT));
+		else if (posTurtle.y > FLOOR3Y)
+			sprite.setPosition((posTurtle.x + vx), (FLOOR2Y - TURTLE_HEIGHT));
+		else if (posTurtle.y > FLOOR4Y)
+			sprite.setPosition((posTurtle.x + vx), (FLOOR3Y - TURTLE_HEIGHT));
+		else if (posTurtle.y > FLOOR5Y)
+			sprite.setPosition((posTurtle.x + vx), (FLOOR4Y - TURTLE_HEIGHT));
+		else
+			sprite.setPosition((posTurtle.x + vx), (FLOOR5Y - TURTLE_HEIGHT));
+		vy = 0;
+		isJump = 0;
+	}	
 }

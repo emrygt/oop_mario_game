@@ -5,8 +5,10 @@
 class Turtle : public Object {
 public:
 	Turtle();
-	bool isWallHit;
+	bool isWallHit();
+
 	void move(void);
 	void fall(void);
-	void jump(bool);
+	void jump(void);	
+	bool isPipeHit(void);
 };

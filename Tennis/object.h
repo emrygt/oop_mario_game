@@ -31,7 +31,9 @@ public:
 	void jump(bool);
 
 	bool onFloor();
-
+	bool wallHit;
+	bool isWallHit(void);
+	bool isPipeHit(void);
 
 
 

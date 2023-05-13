@@ -16,7 +16,33 @@ Mario::Mario ()
 	sprite.setTexture(textures[state]);
 }
 
+bool Mario::isWallHit() {
+	Vector2f v = this->getposition();
+	if (v.x <= 0 && state < 7) {
+		return true;
+	}
+	if (v.x >= WINDOW_WIDTH - 7 && state > 7) {
+		return true;
+	}
+	return false;
+}
 
+bool Mario::isPipeHit() {
+	Vector2f v = this->getposition();
+	if (v.x <= PIPE_WIDTH - 10 && v.y >= FLOOR2Y) {
+		return true;
+	}
+	if (v.x <= PIPES_WIDTH - 10 && v.y < FLOOR5Y) {
+		return true;
+	}
+	if (v.x >= WINDOW_WIDTH - PIPE_WIDTH + 10 && v.y >= FLOOR2Y) {
+		return true;
+	}
+	if (v.x >= WINDOW_WIDTH - PIPES_WIDTH + 10 && v.y < FLOOR5Y) {
+		return true;
+	}
+	return false;
+}
 
 void Mario::jump(bool down)
 {
@@ -51,8 +77,8 @@ void Mario::jump(bool down)
 	
 		else 
 		{ 
-			sprite.move(Vector2f(vx/30, vy));// if onFloor and headBump is zero, continue jumping
-			vy += 0.0015; // gravity
+			sprite.move(Vector2f(vx * 0.9, vy));// if onFloor and headBump is zero, continue jumping
+			vy += 1; // gravity
 		}
 	}
 
@@ -74,23 +100,28 @@ bool Mario::headBump() {
 		return 1;
 	else if ((((posMario.y + vy) < FLOOR5Y + BOXSIZE) && ((posMario.y + vy) > FLOOR5Y + BOXSIZE - MARGIN)) && !(((posMario.x + vx) < (WINDOW_WIDTH - FLOOR5BOX * BOXSIZE - MARIO_WIDTH + heading * MARIO_WIDTH )) && (posMario.x + vx) > (FLOOR5BOX * BOXSIZE + heading * MARIO_WIDTH)) && (vy < 0)) 
 		return 1;
+	else if ((posMario.y + vy) < 0)
+		return 1;
 	return 0;
 
 }
 
 
 void Mario::fall(void)
-{
-	{
-		sprite.move(Vector2f(0, vy));
-	}
+{	
+	sprite.move(Vector2f(0, vy));	
 }
 
 void Mario::move(WalkDirection dir)
 {
 
-	int speed=7;
-	int wait = 60;
+	int speed;
+	if (isWallHit() || isPipeHit()) {
+		speed = 0;
+	}
+	else {
+		speed = 7;
+	}
 	switch (state) {
 	case 1:
 		
@@ -113,7 +144,6 @@ void Mario::move(WalkDirection dir)
 		break;
 
 	case 2:
-		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Left)
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
@@ -131,7 +161,6 @@ void Mario::move(WalkDirection dir)
 		
 		break;
 	case 3:
-		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Left && footstate == 0)
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
@@ -155,7 +184,6 @@ void Mario::move(WalkDirection dir)
 		}
 		break;
 	case 4:
-		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Left) 
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
@@ -200,7 +228,6 @@ void Mario::move(WalkDirection dir)
 		break;
 
 	case 9:
-		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Right) 
 		{
 			sprite.move(sf::Vector2f(speed, 0));
@@ -217,7 +244,6 @@ void Mario::move(WalkDirection dir)
 		}
 		break;
 	case 10:
-		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Right && footstate == 0) 
 		{
 			sprite.move(sf::Vector2f(speed, 0));
@@ -241,7 +267,6 @@ void Mario::move(WalkDirection dir)
 		}
 		break;
 	case 11:
-		sf::sleep(sf::milliseconds(wait));
 		if (dir == WalkDirection::Right)
 		{
 			sprite.move(sf::Vector2f(speed, 0));

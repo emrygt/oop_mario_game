@@ -14,8 +14,13 @@ using namespace sf;
 #define TURTLE_WIDTH	68
 #define TURTLE_HEIGHT	66
 
+#define PIPE_WIDTH		130
+#define PIPE_HEIGHT		74
+#define PIPES_WIDTH		194
+#define PIPES_HEIGHT	122
+
 #define FLOOR2BOX 26
-#define FLOOR3BOX 10
+#define FLOOR3BOX 20
 #define FLOOR4BOX 30
 #define FLOOR5BOX 24
 

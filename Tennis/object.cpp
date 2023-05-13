@@ -56,4 +56,11 @@ bool Object::onFloor() {
 	return 0;
 }
 
+bool Object::isWallHit(void)
+{
+	return false;
+}
 
+bool Object::isPipeHit(void) {
+	return false;
+}
