@@ -41,7 +41,7 @@ bool Turtle::isPipeHit() {
 void Turtle::move(void)
 {	
 	int speed = 7;
-	int wait = 60;
+	int wait = 10;
 	if (isJump) {
 		sprite.move(sf::Vector2f(state >= 4 ? speed : -speed, vy));
 		vy += 3;

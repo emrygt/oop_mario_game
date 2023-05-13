@@ -8,7 +8,11 @@ Game::Game() {
 
 	Background();
 	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH)/2), (FLOOR5Y - MARIO_HEIGHT)));
-	turtle[0].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));		
+		
+	for (int k = 0; k < 5; k++) {
+		turtle[k].setPosition(Vector2f(-520000,-1000));
+	}
+	turtle[0].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
 	turtleNo = 1;
 	mario.isJump = 0;
 	mario.isFall = 0;
