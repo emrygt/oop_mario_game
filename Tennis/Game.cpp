@@ -7,8 +7,9 @@ Game::Game() {
 	
 
 	Background();
-	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH)/2), (FLOOR5Y - MARIO_HEIGHT)));//892 312
-	turtle.setPosition(Vector2f(400, (FLOOR1Y - TURTLE_HEIGHT)));//892 312
+	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH)/2), (FLOOR5Y - MARIO_HEIGHT)));
+	turtle[0].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));		
+	turtleNo = 1;
 	mario.isJump = 0;
 	mario.isFall = 0;
 	mario.footstate = 0;
@@ -16,13 +17,19 @@ Game::Game() {
 	while (window->isOpen())
 	{
 		Event event;
-		
-		cout << mario.isPipeHit() << endl;
+				
 		window->pollEvent(event);
 		
 		if (event.type == Event::Closed)
 			window->close();
-		
+
+		if (turtleNo < 5) {
+			if (turtle[turtleNo - 1].getposition().y > FLOOR4Y) {
+				turtle[turtleNo].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
+				turtleNo++;		
+			} 						
+		}
+
 		if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) //mario will stay subtle if there is now key pressed
 		{
 			mario.move(mario.WalkDirection::Null);
@@ -65,30 +72,65 @@ Game::Game() {
 			mario.jump(1);
 		}
 
-		if (!turtle.onFloor()) {
-			turtle.isJump = 1;
-		}
+		for (int i = 0; i < 5; i++) {
+			if (!turtle[i].onFloor()) {
+				turtle[i].isJump = 1;
+			}
 
-		if (turtle.isJump) {
-			turtle.move();
-			turtle.jump();
+			if (turtle[i].isJump) {
+				turtle[i].move();
+				turtle[i].jump();
+			}
 		}
-
+		
 		window->clear();
 
 		for (int i = 0; i < 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX*2; i++) {
 			window->draw(bgSprites[i]);
 		}
 
-
 		mario.draw(window);
-		turtle.draw(window);
-		turtle.move();
 
+		for (int i = 0; i < 5; i++) {
+			turtle[i].move();
+			turtle[i].draw(window);
+			if (checkCollusion(&turtle[i], &mario, side)) {
+				if (side == 20)
+					turtle[i].state = 7;
+				else if (side == 10)
+					mario.state = 7;
+			}
+		}
+		
+		//cout << side << endl;
 		window->display();
 		
 		//sf::sleep(sf::milliseconds(10));
 	}
+}
+
+bool Game::checkCollusion(Turtle* t, Mario* m, int& side) {
+	Vector2f posTurtle = t->getposition();
+	Vector2f posMario = m->getposition();
+	bool sideHitX = (posTurtle.x < posMario.x + MARIO_WIDTH + 5 && posTurtle.x > posMario.x + MARIO_WIDTH - 5)
+		|| (posTurtle.x + TURTLE_WIDTH < posMario.x + 5 && posTurtle.x + TURTLE_WIDTH > posMario.x - 5);
+	bool sideHitY = posMario.y + MARIO_HEIGHT <= posTurtle.y + TURTLE_HEIGHT && posMario.y + MARIO_HEIGHT >= posTurtle.y;
+	bool headHit = posTurtle.x < posMario.x + 50 && posTurtle.x > posMario.x - 50;
+	bool headHit2 = (posTurtle.y < posMario.y + MARIO_HEIGHT + 5 && posTurtle.y > posMario.y + MARIO_HEIGHT - 5);
+	if (headHit2 && headHit)
+		cout << 1 << endl;
+	//cout << "sideHitX: " << sideHitX << endl;
+	//cout << "sideHitY: " << sideHitY << endl;
+	//cout << "headHit: " << headHit << endl;
+	if (headHit && headHit2) {	// from head
+		side = 20;
+		return true;
+	}
+	else if (sideHitX && sideHitY) {	// from either side
+		side = 10;
+		return true;
+	}
+	return false;
 }
 
 void Game::Background(void) {

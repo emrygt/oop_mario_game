@@ -12,7 +12,7 @@ Turtle::Turtle() {
 	}
 
 	//set initial texture
-	state = 1;
+	state = 4;
 	sprite.setTexture(textures[state]);
 }
 
@@ -38,10 +38,8 @@ bool Turtle::isPipeHit() {
 	return false;
 }
 
-//ishinlanma
-
 void Turtle::move(void)
-{
+{	
 	int speed = 7;
 	int wait = 60;
 	if (isJump) {
@@ -179,7 +177,9 @@ void Turtle::move(void)
 		}
 		break;
 	case 7:	//death
+		sf::sleep(sf::milliseconds(wait));
 		sprite.setTexture(textures[4]);
+		sprite.setScale(1, 1);
 		fall();		
 		break;
 	}	
@@ -187,7 +187,7 @@ void Turtle::move(void)
 
 void Turtle::fall(void)
 {
-	sprite.move(Vector2f(0, 0));
+	sprite.move(sf::Vector2f(0, 10));
 }
 
 void Turtle::jump(void)

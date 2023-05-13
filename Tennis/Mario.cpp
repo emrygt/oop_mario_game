@@ -109,7 +109,7 @@ bool Mario::headBump() {
 
 void Mario::fall(void)
 {	
-	sprite.move(Vector2f(0, vy));	
+	sprite.move(Vector2f(0, 10));	
 }
 
 void Mario::move(WalkDirection dir)
