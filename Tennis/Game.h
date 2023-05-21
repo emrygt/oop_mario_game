@@ -7,15 +7,19 @@
 
 class Game
 {
+
 	int side;	// 10 for collusion from side, 20 for collusion from head
-	Texture bgTextures[4];
-	Sprite* bgSprites;
+	Texture bgTextures[4], hearttexture;
+	Sprite* bgSprites, *heartsprite;
 	Mario mario;
-	Turtle turtle[5];
+	Turtle turtle[TURTLE];
 	int turtleNo = 0;
-	int heart = 1;
+	int heart = HEART;
+	int turtleLeft = TURTLE;
 
 public:
+	Font font;
+	Text text_over,text_start,text_mario,text_win;
 	Game();
 	RenderWindow* window;
 	void Background(void);

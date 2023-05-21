@@ -4,6 +4,9 @@
 
 int main()
 {    
-    Game game;    
+    while(1){
+    Game game;  
+
+    }
     return 0;
 }

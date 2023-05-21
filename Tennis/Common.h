@@ -26,10 +26,14 @@ using namespace sf;
 
 #define FLOOR1Y 980
 #define FLOOR2Y 750
-#define FLOOR3Y 525
+#define FLOOR3Y 575
 #define FLOOR4Y 400
 #define FLOOR5Y 200
 
 #define BOXSIZE 30
 
 #define MARGIN 45
+
+#define HEART 3
+
+#define TURTLE 5
