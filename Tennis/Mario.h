@@ -8,7 +8,6 @@ public:
 	//float vx{};
 	//float vy{};
 	int isHeadBump{};
-	
 	Mario();
 	void move(WalkDirection);
 	void jump(bool);

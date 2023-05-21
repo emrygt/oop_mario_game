@@ -13,6 +13,7 @@ class Game
 	Mario mario;
 	Turtle turtle[5];
 	int turtleNo = 0;
+	int heart = 1;
 
 public:
 	Game();

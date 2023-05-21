@@ -207,6 +207,10 @@ void Mario::move(WalkDirection dir)
 		break;
 	case 7:
 		fall();
+		if (sprite.getPosition().y > WINDOW_HEIGHT) {
+			state = 1;
+			sprite.setPosition(((WINDOW_WIDTH - MARIO_WIDTH) / 2), (FLOOR1Y - MARIO_HEIGHT));
+		}		
 		break;
 	case 8:
 

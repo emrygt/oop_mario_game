@@ -2,117 +2,125 @@
 #include "Game.h"
 
 Game::Game() {
-	window = new RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mario");		
-
+	window = new RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mario");
 	Background();
-	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH)/2), (FLOOR5Y - MARIO_HEIGHT)));
-		
-	for (int k = 0; k < 5; k++) {
-		turtle[k].setPosition(Vector2f(-520000,-1000));	// just random number
-	}
-	turtle[0].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
-	turtleNo = 1;
-	mario.isJump = 0;
-	mario.isFall = 0;
-	mario.footstate = 0;
+	mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH) / 2), (FLOOR5Y - MARIO_HEIGHT)));
+	while (1) {			
 
-	while (window->isOpen())
-	{
-		Event event;
-				
-		window->pollEvent(event);
-		
-		if (event.type == Event::Closed)
-			window->close();
+		for (int k = 0; k < 5; k++) {
+			turtle[k].setPosition(Vector2f(-520000, -1000));	// just random number
+		}
+		turtle[0].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
+		turtleNo = 1;
+		mario.isJump = 0;
+		mario.isFall = 0;
+		mario.footstate = 0;
+		heart = 1;
+		while (1)
+		{
+			Event event;
 
-		if (turtleNo < 5) {
-			if (turtle[turtleNo - 1].getposition().y > FLOOR4Y) {
-				if (turtleNo % 2 == 0) {
-					turtle[turtleNo].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
-					turtle[turtleNo].state = 4;
+			window->pollEvent(event);
+
+			if (event.type == Event::Closed)
+				window->close();
+
+			if (turtleNo < 5) {
+				if (turtle[turtleNo - 1].getposition().y > FLOOR4Y) {
+					if (turtleNo % 2 == 0) {
+						turtle[turtleNo].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
+						turtle[turtleNo].state = 4;
+					}
+					else
+					{
+						turtle[turtleNo].setPosition(Vector2f(WINDOW_WIDTH - PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
+						turtle[turtleNo].state = 1;
+					}
+					turtleNo++;
 				}
-				else
+			}
+
+			if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) // mario will stay subtle if there is now key pressed
+			{
+				mario.move(mario.WalkDirection::Null);
+			}
+			if ((event.type == sf::Event::KeyPressed) || (mario.state != 1 && mario.state != 8))
+			{
+
+
+				if (event.key.code == sf::Keyboard::Right)
 				{
-					turtle[turtleNo].setPosition(Vector2f(WINDOW_WIDTH - PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
-					turtle[turtleNo].state = 1;
+					mario.move(mario.WalkDirection::Right);
 				}
-				turtleNo++;		
-			} 						
-		}
-
-		if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) // mario will stay subtle if there is now key pressed
-		{
-			mario.move(mario.WalkDirection::Null);
-		}
-		if ((event.type == sf::Event::KeyPressed) || (mario.state!=1 && mario.state != 8))
-		{
-		
-			
-			if (event.key.code == sf::Keyboard::Right)
-			{
-				mario.move(mario.WalkDirection::Right);
-			}
-			if (event.key.code == sf::Keyboard::Left)
-			{
-				mario.move(mario.WalkDirection::Left);
-			}
-			if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
-			{
-				mario.isJump = 1;
-				mario.vy = -24;	// initial jump speed
-			}
-			if (mario.isJump)
-			{
-				mario.move(mario.WalkDirection::Null);
-			}			
-			if (event.key.code == sf::Keyboard::F && !mario.isFall)
-			{
-				mario.isFall = 1;
-				mario.vy = 0;
-				mario.state = 7;
-			}
-			if (mario.isFall)
-			{
-				mario.move(mario.WalkDirection::Null);
-				mario.vy += 3;
-			}
-		}		
-
-		if (!mario.onFloor()) {
-			mario.jump(1);
-		}
-
-		for (int i = 0; i < 5; i++) {
-			if (!turtle[i].onFloor()) {
-				turtle[i].isJump = 1;
-			}
-
-			if (turtle[i].isJump) {
-				turtle[i].move();
-				turtle[i].jump();
-			}
-		}
-		
-		window->clear();
-
-		for (int i = 0; i < 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX*2; i++) {
-			window->draw(bgSprites[i]);
-		}
-
-		mario.draw(window);
-
-		for (int i = 0; i < 5; i++) {
-			turtle[i].move();
-			turtle[i].draw(window);
-			if (checkCollusion(&turtle[i], &mario, side)) {
-				if (side == 20)
-					turtle[i].state = 7;
-				else if (side == 10)
+				if (event.key.code == sf::Keyboard::Left)
+				{
+					mario.move(mario.WalkDirection::Left);
+				}
+				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
+				{
+					mario.isJump = 1;
+					mario.vy = -24;	// initial jump speed
+				}
+				if (mario.isJump)
+				{
+					mario.move(mario.WalkDirection::Null);
+				}
+				if (event.key.code == sf::Keyboard::F && !mario.isFall)
+				{
+					mario.isFall = 1;
+					mario.vy = 0;
 					mario.state = 7;
+				}
+				if (mario.isFall)
+				{
+					mario.move(mario.WalkDirection::Null);
+					mario.vy += 3;
+				}
 			}
+
+			if (!mario.onFloor()) {
+				mario.jump(1);
+			}
+
+			for (int i = 0; i < 5; i++) {
+				if (!turtle[i].onFloor()) {
+					turtle[i].isJump = 1;
+				}
+
+				if (turtle[i].isJump) {
+					turtle[i].move();
+					turtle[i].jump();
+				}
+			}
+
+			window->clear();
+
+			for (int i = 0; i < 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX * 2; i++) {
+				window->draw(bgSprites[i]);
+			}
+
+			mario.draw(window);
+
+			for (int i = 0; i < 5; i++) {
+				turtle[i].move();
+				turtle[i].draw(window);
+				if (checkCollusion(&turtle[i], &mario, side)) {
+					if (side == 20)
+						turtle[i].state = 7;
+					else if (side == 10) {
+						mario.state = 7;
+						heart--;
+					}
+				}
+			}
+
+			if (!heart) {
+				cout << "game over" << endl;
+				break;
+			}
+
+			window->display();
 		}
-				
-		window->display();		
 	}
 }
 
@@ -120,15 +128,11 @@ bool Game::checkCollusion(Turtle* t, Mario* m, int& side) {
 	Vector2f posTurtle = t->getposition();
 	Vector2f posMario = m->getposition();
 	bool sideHitX = (posTurtle.x < posMario.x + MARIO_WIDTH + 5 && posTurtle.x > posMario.x + MARIO_WIDTH - 5)
-		|| (posTurtle.x + TURTLE_WIDTH < posMario.x + 5 && posTurtle.x + TURTLE_WIDTH > posMario.x - 5);
+		|| (posTurtle.x + TURTLE_WIDTH < posMario.x + 15 && posTurtle.x + TURTLE_WIDTH > posMario.x - 5);
 	bool sideHitY = posMario.y + MARIO_HEIGHT <= posTurtle.y + TURTLE_HEIGHT && posMario.y + MARIO_HEIGHT >= posTurtle.y;
 	bool headHit = posTurtle.x < posMario.x + 50 && posTurtle.x > posMario.x - 50;
 	bool headHit2 = (posTurtle.y < posMario.y + MARIO_HEIGHT + 5 && posTurtle.y > posMario.y + MARIO_HEIGHT - 5);
-	if (headHit2 && headHit)
-		cout << 1 << endl;
-	//cout << "sideHitX: " << sideHitX << endl;
-	//cout << "sideHitY: " << sideHitY << endl;
-	//cout << "headHit: " << headHit << endl;
+
 	if (headHit && headHit2) {	// from head
 		side = 20;
 		return true;
@@ -163,9 +167,9 @@ void Game::Background(void) {
 	bgSprites[4].setTexture(bgTextures[2]);
 	bgSprites[4].setPosition({ 0,FLOOR1Y });
 	bgSprites[5].setTexture(bgTextures[2]);
-	bgSprites[5].setPosition({ WINDOW_WIDTH/2,FLOOR1Y });
+	bgSprites[5].setPosition({ WINDOW_WIDTH / 2,FLOOR1Y });
 
-	
+
 
 	bgTextures[3].loadFromFile("../assets/brick.png");
 
@@ -173,19 +177,19 @@ void Game::Background(void) {
 		bgSprites[i + 6].setTexture(bgTextures[3]);
 	}
 	for (int i = 0; i < FLOOR2BOX; i++) {
-		bgSprites[i + 6].setPosition({float(i * BOXSIZE), FLOOR2Y });
+		bgSprites[i + 6].setPosition({ float(i * BOXSIZE), FLOOR2Y });
 	}
 	for (int i = 0; i < FLOOR2BOX; i++) {
-		bgSprites[i + 6+ FLOOR2BOX].setPosition({ float(WINDOW_WIDTH-BOXSIZE* FLOOR2BOX + i * BOXSIZE), FLOOR2Y });
+		bgSprites[i + 6 + FLOOR2BOX].setPosition({ float(WINDOW_WIDTH - BOXSIZE * FLOOR2BOX + i * BOXSIZE), FLOOR2Y });
 	}
 	for (int i = 0; i < FLOOR3BOX; i++) {
-		bgSprites[i + 6+ FLOOR2BOX*2].setPosition({ float(i * BOXSIZE), FLOOR3Y });
+		bgSprites[i + 6 + FLOOR2BOX * 2].setPosition({ float(i * BOXSIZE), FLOOR3Y });
 	}
 	for (int i = 0; i < FLOOR3BOX; i++) {
-		bgSprites[i + 6 + FLOOR2BOX * 2+ FLOOR3BOX].setPosition({ float(WINDOW_WIDTH - BOXSIZE * FLOOR3BOX + i * BOXSIZE), FLOOR3Y });
+		bgSprites[i + 6 + FLOOR2BOX * 2 + FLOOR3BOX].setPosition({ float(WINDOW_WIDTH - BOXSIZE * FLOOR3BOX + i * BOXSIZE), FLOOR3Y });
 	}
 	for (int i = 0; i < FLOOR4BOX; i++) {
-		bgSprites[i + 6 + FLOOR2BOX * 2 + FLOOR3BOX *2].setPosition({ float((WINDOW_WIDTH - BOXSIZE * FLOOR4BOX)/2  + i * BOXSIZE), FLOOR4Y });
+		bgSprites[i + 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2].setPosition({ float((WINDOW_WIDTH - BOXSIZE * FLOOR4BOX) / 2 + i * BOXSIZE), FLOOR4Y });
 	}
 	for (int i = 0; i < FLOOR5BOX; i++) {
 		bgSprites[i + 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX].setPosition({ float(i * BOXSIZE), FLOOR5Y });
