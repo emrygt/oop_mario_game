@@ -7,21 +7,21 @@ Mario::Mario ()
 	char path[64];
 	for (int i = 1; i < 8; i++) 
 	{
-		sprintf_s(path, "../assets/mario%d.png", i);
+		sprintf_s(path, "../assets/mario%d.png", i); //loading the textures
 		textures[i - 1].loadFromFile(path);
 	}
 
 	state = 1;
 	int footstate;
-	sprite.setTexture(textures[state]);
+	sprite.setTexture(textures[state]); //setting the sprite according to the state
 }
 
 bool Mario::isWallHit() {
 	Vector2f v = this->getposition();
-	if (v.x <= 0 && state < 7) {
+	if (v.x <= 0 && state < 7) { //if mario's x position is smaller than 0 and mario is looking left he has hit the wall
 		return true;
 	}
-	if (v.x >= WINDOW_WIDTH - 7 && state > 7) {
+	if (v.x >= WINDOW_WIDTH - 7 && state > 7) {//if mario's x position is biggerer than window width and mario is looking right he has hit the wall
 		return true;
 	}
 	return false;
@@ -29,7 +29,7 @@ bool Mario::isWallHit() {
 
 bool Mario::isPipeHit() {
 	Vector2f v = this->getposition();
-	if (v.x <= PIPE_WIDTH - 10 && v.y >= FLOOR2Y) {
+	if (v.x <= PIPE_WIDTH - 10 && v.y >= FLOOR2Y) { // mario's hitting the pipe conditions
 		return true;
 	}
 	if (v.x <= PIPES_WIDTH - 10 && v.y < FLOOR5Y) {
@@ -50,11 +50,11 @@ void Mario::jump(bool down)
 	Vector2f posMario=sprite.getPosition();
 	if (down == 0)
 	{	
-		if (onFloor()) {
+		if (onFloor()) {	//this function makes sure that mario lands properly
 			
-			if(posMario.y>FLOOR2Y)
+			if(posMario.y>FLOOR2Y)	//if mario is under floor two then land mario specified coordinates
 				sprite.setPosition((posMario.x + vx), (FLOOR1Y - MARIO_HEIGHT));
-			else if (posMario.y > FLOOR3Y)
+			else if (posMario.y > FLOOR3Y)  //if mario is on the third floor then land mario specified coordinates
 				sprite.setPosition((posMario.x + vx), (FLOOR2Y - MARIO_HEIGHT));
 			else if (posMario.y > FLOOR4Y)
 				sprite.setPosition((posMario.x + vx), (FLOOR3Y - MARIO_HEIGHT));
@@ -62,22 +62,22 @@ void Mario::jump(bool down)
 				sprite.setPosition((posMario.x + vx), (FLOOR4Y - MARIO_HEIGHT));
 			else
 				sprite.setPosition((posMario.x + vx), (FLOOR5Y - MARIO_HEIGHT));
-			vx = 0;
+			vx = 0; //stop mario
 			vy = 0;
-			isJump = 0;
-			if (heading == 0) 
+			isJump = 0;	//disable jump flag
+			if (heading == 0) //set state back to walking states according to the heading
 				state = 1;
 			if (heading == 1) 
 				state = 8;
 		}
 
-		if (headBump()) {
+		if (headBump()) { //if mario bumps his head to ceiling, make zero its vertical speed
 			vy = 0;
 		}
 	
 		else 
 		{ 
-			sprite.move(Vector2f(vx * 0.9, vy));// if onFloor and headBump is zero, continue jumping
+			sprite.move(Vector2f(vx * 0.9, vy));// if mario is not on floor and headBump is zero, continue jumping
 			vy += 1; // gravity
 		}
 	}
@@ -88,7 +88,7 @@ void Mario::jump(bool down)
 	}
 }
 
-bool Mario::headBump() {
+bool Mario::headBump() { //checks if mario hits his head to a ceiling while jumping
 
 	Vector2f posMario = sprite.getPosition();
 
