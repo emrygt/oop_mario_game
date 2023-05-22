@@ -80,34 +80,34 @@ Game::Game() {
 					mario.move(mario.WalkDirection::Null);
 				}
 				
-				if (mario.isFall)
+				if (mario.isFall)		//mario is dead
 				{
 					mario.move(mario.WalkDirection::Null);
 					mario.vy += 3;
 				}
 			}
 
-			if (!mario.onFloor()) {
+			if (!mario.onFloor()) { //continue falling
 				mario.jump(1);
 			}
 
 			for (int i = 0; i < TURTLE; i++) {
-				if (!turtle[i].onFloor()) {
+				if (!turtle[i].onFloor()) { //if turtle is not on floor start falling down
 					turtle[i].isJump = 1;
 				}
 
 				if (turtle[i].isJump) {
-					turtle[i].move();
+					turtle[i].move();	//continue turtle moving if turtle is jumping
 					turtle[i].jump();
 				}
 			}
 
 			window->clear();
 
-			for (int i = 0; i < 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX * 2; i++) {
+			for (int i = 0; i < 6 + FLOOR2BOX * 2 + FLOOR3BOX * 2 + FLOOR4BOX + FLOOR5BOX * 2; i++) { // draw the background
 				window->draw(bgSprites[i]);
 			}
-			for (int i = 0; i <heart; i++) {
+			for (int i = 0; i <heart; i++) {		//draw the hearts
 				window->draw(heartsprite[i]);
 			}
 
