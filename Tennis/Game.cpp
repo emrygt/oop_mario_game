@@ -5,46 +5,45 @@ Game::Game() {
 	window = new RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mario");
 	Background();
 	
-	//while (1) {		
+
 		
-		while (1) {
+		while (1) {  //while loop for the start screen
 			Event event;
 			window->pollEvent(event);
 			window->clear();
-			window->draw(text_start);
+			window->draw(text_start); //printing the starting screen
 			window->draw(text_mario);
 			window->display();
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter){
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter){ //if the enter is pressed break the loop
 				break;
 			}
 		}
 		for (int k = 0; k < TURTLE; k++) {
 			turtle[k].setPosition(Vector2f(-520000, -500));	// just random number
 		}
-		turtle[0].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
-		turtleNo = 1;
+		turtle[0].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50)); //set position of the first turtle
+		turtleNo = 1;					//initial variables
 		turtle[0].state = 4;
 		mario.isJump = 0;
 		mario.isFall = 0;
 		mario.footstate = 0;
 		mario.state = 1;
-		mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH) / 2), (FLOOR1Y - MARIO_HEIGHT)));
-		heart = HEART;
-		turtleLeft = TURTLE;
+		mario.setPosition(Vector2f(((WINDOW_WIDTH - MARIO_WIDTH) / 2), (FLOOR1Y - MARIO_HEIGHT))); //mario starting position
+		heart = HEART; //mario heart count
+		turtleLeft = TURTLE; //turtle count
 		while (1)
 		{
 			Event event;
-			cout << turtleLeft << endl;
 			window->pollEvent(event);
 
 			if (event.type == Event::Closed)
 				window->close();
 
 			if (turtleNo < TURTLE) {
-				if (turtle[turtleNo - 1].getposition().y > FLOOR4Y) {
-					if (turtleNo % 2 == 0) {
+				if (turtle[turtleNo - 1].getposition().y > FLOOR4Y) { //if previous turtle is under floor 4, spawn a new turtle
+					if (turtleNo % 2 == 0) {						  //spawn turtles from right and left in order
 						turtle[turtleNo].setPosition(Vector2f(PIPES_WIDTH, FLOOR5Y - TURTLE_HEIGHT - 50));
-						turtle[turtleNo].state = 4;
+						turtle[turtleNo].state = 4;		
 					}
 					else
 					{
@@ -55,7 +54,7 @@ Game::Game() {
 				}
 			}
 
-			if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) // mario will stay subtle if there is now key pressed
+			if ((mario.state != 1 && mario.state != 8) && (event.type != sf::Event::KeyPressed)) // mario will stay subtle if there is no key pressed
 			{
 				mario.move(mario.WalkDirection::Null);
 			}
@@ -63,7 +62,7 @@ Game::Game() {
 			{
 
 
-				if (event.key.code == sf::Keyboard::Right)
+				if (event.key.code == sf::Keyboard::Right) //keyboard interrupts
 				{
 					mario.move(mario.WalkDirection::Right);
 				}
@@ -71,21 +70,16 @@ Game::Game() {
 				{
 					mario.move(mario.WalkDirection::Left);
 				}
-				if ((event.key.code == sf::Keyboard::Space && !mario.isJump))
+				if ((event.key.code == sf::Keyboard::Space && !mario.isJump)) // start jumping and set the initial jumping speed
 				{
 					mario.isJump = 1;
 					mario.vy = -24;	// initial jump speed
 				}
-				if (mario.isJump)
+				if (mario.isJump)		//continue jumping
 				{
 					mario.move(mario.WalkDirection::Null);
 				}
-				if (event.key.code == sf::Keyboard::F && !mario.isFall)
-				{
-					mario.isFall = 1;
-					mario.vy = 0;
-					mario.state = 7;
-				}
+				
 				if (mario.isFall)
 				{
 					mario.move(mario.WalkDirection::Null);
@@ -154,7 +148,7 @@ Game::Game() {
 			sleep(milliseconds(3000));
 		}
 		window->close();
-	//}
+	
 }
 
 bool Game::checkCollusion(Turtle* t, Mario* m, int& side) {

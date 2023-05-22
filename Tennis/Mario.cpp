@@ -109,200 +109,200 @@ bool Mario::headBump() { //checks if mario hits his head to a ceiling while jump
 
 void Mario::fall(void)
 {	
-	sprite.move(Vector2f(0, 10));	
+	sprite.move(Vector2f(0, 10));	//Mario falls down from the screen if he dies
 }
 
-void Mario::move(WalkDirection dir)
+void Mario::move(WalkDirection dir)	//state diagram
 {
 
 	int speed;
-	if (isWallHit() || isPipeHit()) {
+	if (isWallHit() || isPipeHit()) { // if mario hits somewhere stop mario
 		speed = 0;
 	}
 	else {
-		speed = 7;
+		speed = 7; // mario's default speed
 	}
 	switch (state) {
-	case 1:
+	case 1: //stand still looking left
 		
-		if (dir == WalkDirection::Right)
+		if (dir == WalkDirection::Right) //if right button is pressed, stand still looking right
 		{
 			sprite.move(sf::Vector2f(speed + MARIO_WIDTH,0));
 			state = 8;
 
 			vx = 0;
 		}
-		else if (dir == WalkDirection::Left)
+		else if (dir == WalkDirection::Left) //if left button is pressed, start walking left
 		{
 			sprite.move(sf::Vector2f(-speed,0));
 			state = 2;
 		}
-		else if (isJump)
+		else if (isJump)	//if jump is invoked go to jump looking left state
 		{
 			state = 6;
 		}
 		break;
 
-	case 2:
-		if (dir == WalkDirection::Left)
+	case 2://mario walking left 
+		if (dir == WalkDirection::Left)// walk left
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 3;
 		}
-		else if (isJump)
+		else if (isJump) //jump
 		{
 			state = 6;
 			vx = -speed;
 		}
-		else
+		else //if mario is not walking or jumping, go back to standing still
 		{
 			state = 1;
 		}
 		
 		break;
-	case 3:
-		if (dir == WalkDirection::Left && footstate == 0)
+	case 3://mario walking left
+		if (dir == WalkDirection::Left && footstate == 0)//go to state 4 according to footstate
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 4;
 			footstate = 1;
 		}
-		else if (dir == WalkDirection::Left && footstate == 1)
+		else if (dir == WalkDirection::Left && footstate == 1)//go to state 2 according to footstate
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 2;
 			footstate = 0;
 		}
-		else if (isJump)
+		else if (isJump) //jump
 		{
 			state = 6;
 			vx = -speed;
 		}
-		else
+		else //if mario is not walking or jumping, go back to standing still
 		{
 			state = 1;
 		}
 		break;
 	case 4:
-		if (dir == WalkDirection::Left) 
+		if (dir == WalkDirection::Left) //walk left
 		{
 			sprite.move(sf::Vector2f(-speed, 0));
 			state = 3;
 		}
-		else if (isJump)
+		else if (isJump) //jump
 		{
 			state = 6;
 			vx = -speed;
 		}
-		else
+		else //if mario is not walking or jumping, go back to standing still
 		{
 			state = 1;
 		}
 		break;
-	case 5:
+	case 5: // reserved for bonus 
 		break;
-	case 6:
+	case 6: //jump looking left state
 		jump(0);
 		//state = 1;
 		break;
-	case 7:
+	case 7: //dead state
 		fall();
-		if (sprite.getPosition().y > WINDOW_HEIGHT) {
+		if (sprite.getPosition().y > WINDOW_HEIGHT) { //if mario is gone from the screen, respawn him
 			state = 1;
 			sprite.setPosition(((WINDOW_WIDTH - MARIO_WIDTH) / 2), (FLOOR1Y - MARIO_HEIGHT));
 		}		
 		break;
-	case 8:
+	case 8: //mario standing still looking right
 
-		if (dir == WalkDirection::Left) 
+		if (dir == WalkDirection::Left) // if left is pressed mario stands still looking right
 		{
 			sprite.move(sf::Vector2f(-speed - MARIO_WIDTH, 0));
 			state = 1;
 			vx=0;
 		}
-		else if (dir == WalkDirection::Right)
+		else if (dir == WalkDirection::Right) //walk right
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 9;
 		}
-		else if (isJump)
+		else if (isJump) //jump
 		{
 			state = 13;
 		}
 		break;
 
 	case 9:
-		if (dir == WalkDirection::Right) 
+		if (dir == WalkDirection::Right) //walk right
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 10;
 		}
-		else if (isJump)
+		else if (isJump) //jump
 		{
 			state = 13;
 			vx = speed;
 		}
-		else
+		else  //if mario is not walking or jumping, go back to standing still
 		{
 			state = 8;
 		}
 		break;
 	case 10:
-		if (dir == WalkDirection::Right && footstate == 0) 
+		if (dir == WalkDirection::Right && footstate == 0) //go to state 11 according to footstate
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 11;
 			footstate = 1;
 		}
-		else if (dir == WalkDirection::Right && footstate == 1)
+		else if (dir == WalkDirection::Right && footstate == 1) //go to state 9 according to footstate
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 9;
 			footstate = 0;
 		}
-		else if (isJump)
+		else if (isJump) //jump
 		{
 			state = 13;
 			vx = speed;
 		}
-		else
+		else //if mario is not walking or jumping, go back to standing still
 		{
 			state = 8;
 		}
 		break;
 	case 11:
-		if (dir == WalkDirection::Right)
+		if (dir == WalkDirection::Right) //walk right
 		{
 			sprite.move(sf::Vector2f(speed, 0));
 			state = 10;
 		}
-		else if (isJump)
+		else if (isJump) //jump
 		{
 			state = 13;
 			vx = speed;
 		}
-		else
+		else //if mario is not walking or jumping, go back to standing still
 		{
 			state = 8;
 		}
 		break;
 	case 12:
-		break;
+		break;// reserved for bonus
 	case 13:
-		jump(0);
+		jump(0); //jump
 		break;
 
 	}
 	
 	
-	if (state > 7){
+	if (state > 7){ //if state is greater than 7 mario is looking right
 		heading = 1;
-		sprite.setTexture(textures[state-8]);
-		sprite.setScale(-1, 1);
+		sprite.setTexture(textures[state-8]); //assign sprites according to the states
+		sprite.setScale(-1, 1); //mirror the original images
 	}
-	if (state <= 7) {
+	if (state <= 7) {//if state is lower than 7 mario is looking left 
 		heading = 0;
-		sprite.setTexture(textures[state - 1]);
+		sprite.setTexture(textures[state - 1]);//assign sprites according to the states
 		sprite.setScale(1, 1);
 	}
 }

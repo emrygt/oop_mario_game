@@ -34,7 +34,7 @@ void Object::jump(bool down) {
 
 }
 
-bool Object::onFloor() {
+bool Object::onFloor() {//checks if the object is on the floor
 
 	Vector2f posObject = sprite.getPosition();
 
