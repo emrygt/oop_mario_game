@@ -21,7 +21,7 @@ bool Mario::isWallHit() {
 	if (v.x <= 0 && state < 7) { //if mario's x position is smaller than 0 and mario is looking left he has hit the wall
 		return true;
 	}
-	if (v.x >= WINDOW_WIDTH - 7 && state > 7) {//if mario's x position is biggerer than window width and mario is looking right he has hit the wall
+	if (v.x >= WINDOW_WIDTH - 7 && state > 7) {//if mario's x position is bigger than window width and mario is looking right he has hit the wall
 		return true;
 	}
 	return false;

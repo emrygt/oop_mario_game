@@ -1,13 +1,11 @@
 #pragma once
 #include "Turtle.h"
 
-//turtle ne zaman ve nasil oluyor onu belli etmedim
-
 Turtle::Turtle() {
 	char path[64];
 	for (int i = 1; i < 6; i++)
 	{
-		sprintf_s(path, "../assets/turtle%d.png", i);
+		sprintf_s(path, "../assets/turtle%d.png", i);	// loading the textures
 		textures[i - 1].loadFromFile(path);
 	}
 
@@ -18,16 +16,16 @@ Turtle::Turtle() {
 
 bool Turtle::isWallHit() {
 	Vector2f v = this->getposition();
-	if (v.x <= TURTLE_WIDTH && state < 4) {
+	if (v.x <= TURTLE_WIDTH && state < 4) {		// if turtle's x position is smaller than its width and is looking left he has hit the wall
 		return true;
 	}
-	if (v.x >= WINDOW_WIDTH - TURTLE_WIDTH - 5 && state >= 4) {
+	if (v.x >= WINDOW_WIDTH - TURTLE_WIDTH - 5 && state >= 4) {		// if turtle's x position is bigger than window width minus turtle width and is looking right he has hit the wall
 		return true;
 	}
 	return false;
 }
 
-bool Turtle::isPipeHit() {
+bool Turtle::isPipeHit() {		// when turtle enters into a pipe
 	Vector2f v = this->getposition();
 	if (v.x <= TURTLE_WIDTH + PIPE_WIDTH && v.y >= FLOOR2Y) {
 		return true;
@@ -38,17 +36,16 @@ bool Turtle::isPipeHit() {
 	return false;
 }
 
-void Turtle::move(void)
-{	
+void Turtle::move(void) {	// implemented after drawing the state diagram
 	int speed = 7;
 	int wait = 10;
-	if (isJump) {
+	if (isJump) {	// control turtle's falling down speed
 		sprite.move(sf::Vector2f(state >= 4 ? speed : -speed, vy));
 		vy += 3;
 		isJump = 0;
 		return;
 	}
-	if (isPipeHit()) {
+	if (isPipeHit()) {		// if a turtle enters into a pipe, she will pop out from another pipe
 		Vector2f posTurtle = this->getposition();
 		if (posTurtle.x < WINDOW_WIDTH / 2) {
 			sprite.setPosition((PIPES_WIDTH - 20), (FLOOR5Y - TURTLE_HEIGHT - 50));
@@ -59,16 +56,14 @@ void Turtle::move(void)
 			state = 1;
 		}
 	}
-	switch (state) {
-	case 1:
+	switch (state) {	// states
+	case 1:		// moving left image 1
 		sprite.setTexture(textures[0]);
 		sprite.setScale(-1, 1);
 		sprite.move(sf::Vector2f(-speed, 0));
 		wallHit = isWallHit();
 		if (!wallHit) {			
-
 			state = 2;
-			//vx = 0;
 		}
 		else {
 			wallHit = false;
@@ -78,7 +73,7 @@ void Turtle::move(void)
 		}
 		break;
 
-	case 2:
+	case 2:		// moving left image 2
 		sprite.setTexture(textures[1]);
 		sprite.setScale(-1, 1);
 		sf::sleep(sf::milliseconds(wait));
@@ -102,7 +97,7 @@ void Turtle::move(void)
 		}
 
 		break;
-	case 3:
+	case 3:		// moving left image 3
 		sprite.setTexture(textures[2]);
 		sprite.setScale(-1, 1);
 		sf::sleep(sf::milliseconds(wait));
@@ -118,7 +113,7 @@ void Turtle::move(void)
 			footstate = false;
 		}
 		break;
-	case 4:
+	case 4:		// moving right image 1
 		sprite.setTexture(textures[0]);
 		sprite.setScale(1, 1);
 		sf::sleep(sf::milliseconds(wait));		
@@ -134,10 +129,9 @@ void Turtle::move(void)
 			sprite.move(sf::Vector2f(TURTLE_WIDTH, 0));
 			state = 1;
 			footstate = false;
-			//vx = -speed;
 		}
 		break;
-	case 5:
+	case 5:		// moving right image 2
 		sprite.setTexture(textures[1]);
 		sprite.setScale(1, 1);
 		sf::sleep(sf::milliseconds(wait));
@@ -160,7 +154,7 @@ void Turtle::move(void)
 			footstate = false;
 		}
 		break;
-	case 6:
+	case 6:		// moving right image 3
 		sprite.setTexture(textures[2]);
 		sprite.setScale(1, 1);
 		sf::sleep(sf::milliseconds(wait));
@@ -176,7 +170,7 @@ void Turtle::move(void)
 			footstate = false;
 		}
 		break;
-	case 7:	//death
+	case 7:		// death
 		sf::sleep(sf::milliseconds(wait));
 		sprite.setTexture(textures[4]);
 		sprite.setScale(1, 1);
@@ -187,14 +181,14 @@ void Turtle::move(void)
 
 void Turtle::fall(void)
 {
-	sprite.move(sf::Vector2f(0, 10));
+	sprite.move(sf::Vector2f(0, 10));	// Turtle falls down from the screen when death happens
 }
 
 void Turtle::jump(void)
 {
 	Vector2f posTurtle = sprite.getPosition();
-	if (onFloor()) {
-		if (posTurtle.y > FLOOR2Y)
+	if (onFloor()) {	// ensure turtle lands properly
+		if (posTurtle.y > FLOOR2Y)		// setting position according to current position
 			sprite.setPosition((posTurtle.x + vx), (FLOOR1Y - TURTLE_HEIGHT));
 		else if (posTurtle.y > FLOOR3Y)
 			sprite.setPosition((posTurtle.x + vx), (FLOOR2Y - TURTLE_HEIGHT));
@@ -204,7 +198,7 @@ void Turtle::jump(void)
 			sprite.setPosition((posTurtle.x + vx), (FLOOR4Y - TURTLE_HEIGHT));
 		else
 			sprite.setPosition((posTurtle.x + vx), (FLOOR5Y - TURTLE_HEIGHT));
-		vy = 0;
-		isJump = 0;
+		vy = 0;		// stop vertical movement
+		isJump = 0;	// disable flag
 	}	
 }

@@ -113,7 +113,7 @@ Game::Game() {
 
 			mario.draw(window);
 
-			for (int i = 0; i < TURTLE; i++) {
+			for (int i = 0; i < TURTLE; i++) {		// move the turtles and check collusions with mario
 				turtle[i].move();
 				turtle[i].draw(window);
 				if (checkCollusion(&turtle[i], &mario, side)) {
@@ -130,18 +130,18 @@ Game::Game() {
 				}
 			}
 
-			if (!heart||!turtleLeft) {
+			if (!heart||!turtleLeft) {	// either game win or game over
 				break;
 			}
 			window->display();
 		}
-		if (!heart) {
+		if (!heart) {		// game over display
 			window->clear();
 			window->draw(text_over);
 			window->display();
 			sleep(milliseconds(3000));
 		}
-		if (!turtleLeft) {
+		if (!turtleLeft) {	//game win dispaly
 			window->clear();
 			window->draw(text_win);
 			window->display();
@@ -151,7 +151,7 @@ Game::Game() {
 	
 }
 
-bool Game::checkCollusion(Turtle* t, Mario* m, int& side) {
+bool Game::checkCollusion(Turtle* t, Mario* m, int& side) {		// if collusion is from sideways, side = 10, if it is from head, side = 20
 	Vector2f posTurtle = t->getposition();
 	Vector2f posMario = m->getposition();
 	bool sideHitX = (posTurtle.x < posMario.x + MARIO_WIDTH + 5 && posTurtle.x > posMario.x + MARIO_WIDTH - 5)
