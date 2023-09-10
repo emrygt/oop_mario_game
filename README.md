@@ -4,5 +4,5 @@ Super Mario game written in C++ using SFML library.
 
 Contributers:
 
-Armin Asgharifard,
-Emrecan Yiğit
+Emrecan Yiğit,
+Armin Asgharifard
